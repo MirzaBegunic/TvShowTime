@@ -1,0 +1,21 @@
+{
+    "id": 4561,
+    "url": "http://www.tvmaze.com/episodes/4561/modern-family-2x01-the-old-wagon",
+    "name": "The Old Wagon",
+    "season": 2,
+    "number": 1,
+    "airdate": "2010-09-22",
+    "airtime": "21:00",
+    "airstamp": "2010-09-23T01:00:00+00:00",
+    "runtime": 30,
+    "image": {
+        "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/17/42894.jpg",
+        "original": "http://static.tvmaze.com/uploads/images/original_untouched/17/42894.jpg"
+    },
+    "summary": "<p>As ABC's Emmy Award-winning series \"Modern Family\" returns for its second season, Claire finally gets Phil to agree to sell their old station wagon, but not before everyone has to take it on one last ride down memory lane. Meanwhile, when a haphazard hammer-wielding Mitchell decides to build a life-size princess castle for Lily, Cameron calls Jay in for reinforcement, and Manny invites a cute girl over for a study date -- which makes Gloria a little uncomfortable -- .</p>",
+    "_links": {
+        "self": {
+            "href": "http://api.tvmaze.com/episodes/4561"
+        }
+    }
+}

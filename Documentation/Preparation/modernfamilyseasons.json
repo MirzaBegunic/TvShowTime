@@ -1,0 +1,289 @@
+[
+    {
+        "id": 291,
+        "url": "http://www.tvmaze.com/seasons/291/modern-family-season-1",
+        "number": 1,
+        "name": "",
+        "episodeOrder": 24,
+        "premiereDate": "2009-09-23",
+        "endDate": "2010-05-19",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379484.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379484.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/291"
+            }
+        }
+    },
+    {
+        "id": 292,
+        "url": "http://www.tvmaze.com/seasons/292/modern-family-season-2",
+        "number": 2,
+        "name": "",
+        "episodeOrder": 24,
+        "premiereDate": "2010-09-22",
+        "endDate": "2011-05-25",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379483.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379483.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/292"
+            }
+        }
+    },
+    {
+        "id": 293,
+        "url": "http://www.tvmaze.com/seasons/293/modern-family-season-3",
+        "number": 3,
+        "name": "",
+        "episodeOrder": 24,
+        "premiereDate": "2011-09-21",
+        "endDate": "2012-05-23",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379482.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379482.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/293"
+            }
+        }
+    },
+    {
+        "id": 294,
+        "url": "http://www.tvmaze.com/seasons/294/modern-family-season-4",
+        "number": 4,
+        "name": "",
+        "episodeOrder": 24,
+        "premiereDate": "2012-09-26",
+        "endDate": "2013-05-22",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379481.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379481.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/294"
+            }
+        }
+    },
+    {
+        "id": 295,
+        "url": "http://www.tvmaze.com/seasons/295/modern-family-season-5",
+        "number": 5,
+        "name": "",
+        "episodeOrder": 24,
+        "premiereDate": "2013-09-25",
+        "endDate": "2014-05-21",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379480.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379480.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/295"
+            }
+        }
+    },
+    {
+        "id": 296,
+        "url": "http://www.tvmaze.com/seasons/296/modern-family-season-6",
+        "number": 6,
+        "name": "",
+        "episodeOrder": 24,
+        "premiereDate": "2014-09-24",
+        "endDate": "2015-05-20",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379479.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379479.jpg"
+        },
+        "summary": "",
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/296"
+            }
+        }
+    },
+    {
+        "id": 9063,
+        "url": "http://www.tvmaze.com/seasons/9063/modern-family-season-7",
+        "number": 7,
+        "name": "",
+        "episodeOrder": 22,
+        "premiereDate": "2015-09-23",
+        "endDate": "2016-05-18",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379478.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379478.jpg"
+        },
+        "summary": "",
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/9063"
+            }
+        }
+    },
+    {
+        "id": 37229,
+        "url": "http://www.tvmaze.com/seasons/37229/modern-family-season-8",
+        "number": 8,
+        "name": "",
+        "episodeOrder": 22,
+        "premiereDate": "2016-09-21",
+        "endDate": "2017-05-17",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379477.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379477.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/37229"
+            }
+        }
+    },
+    {
+        "id": 67971,
+        "url": "http://www.tvmaze.com/seasons/67971/modern-family-season-9",
+        "number": 9,
+        "name": "",
+        "episodeOrder": 22,
+        "premiereDate": "2017-09-27",
+        "endDate": "2018-05-16",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/151/379476.jpg",
+            "original": "http://static.tvmaze.com/uploads/images/original_untouched/151/379476.jpg"
+        },
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/67971"
+            }
+        }
+    },
+    {
+        "id": 67972,
+        "url": "http://www.tvmaze.com/seasons/67972/modern-family-season-10",
+        "number": 10,
+        "name": "",
+        "episodeOrder": 22,
+        "premiereDate": "2018-09-26",
+        "endDate": "2019-05-08",
+        "network": {
+            "id": 3,
+            "name": "ABC",
+            "country": {
+                "name": "United States",
+                "code": "US",
+                "timezone": "America/New_York"
+            }
+        },
+        "webChannel": null,
+        "image": null,
+        "summary": null,
+        "_links": {
+            "self": {
+                "href": "http://api.tvmaze.com/seasons/67972"
+            }
+        }
+    }
+]
