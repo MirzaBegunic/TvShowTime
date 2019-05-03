@@ -54,8 +54,5 @@ SeenStatus boolean
 Cast
 -
 showId PK int FK >- Show.showId
-actorId PK int
-Name string
-CharacterId int
-CharacterName  string
-ImageCharacter ImageStruct
+realPerson PersonStruct PK
+character CharacterStruct
