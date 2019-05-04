@@ -1,10 +1,13 @@
 package com.example.tvshowtime.database;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "cast_table", primaryKeys = {"showId", "realPerson"})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "cast_table", primaryKeys = {"showId", "realPerson"}, foreignKeys = @ForeignKey(entity = Show.class, parentColumns = "showId", childColumns = "showId", onDelete = CASCADE))
 public class Cast {
     private Integer showId;
 
@@ -30,5 +33,17 @@ public class Cast {
 
     public Character getSeriesCharacter() {
         return seriesCharacter;
+    }
+
+    public void setShowId(Integer showId) {
+        this.showId = showId;
+    }
+
+    public void setRealPerson(Person realPerson) {
+        this.realPerson = realPerson;
+    }
+
+    public void setSeriesCharacter(Character seriesCharacter) {
+        this.seriesCharacter = seriesCharacter;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.tvshowtime.database;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Database;
@@ -20,6 +19,8 @@ public abstract class TvShowsDatabase extends RoomDatabase {
     public abstract EpisodesDao episodesDao();
 
     public abstract CastDao castDao();
+
+    public abstract DatabaseDao databaseDao();
 
     public static synchronized TvShowsDatabase getInstance(Context context){
         if(instance!=null){

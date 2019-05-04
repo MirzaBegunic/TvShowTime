@@ -1,11 +1,14 @@
 package com.example.tvshowtime.database;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "show_table")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "show_table", foreignKeys = @ForeignKey(entity = Shows.class,parentColumns = "showId", childColumns = "showId", onDelete = CASCADE))
 public class Show {
 
     @SerializedName("id")
@@ -105,5 +108,53 @@ public class Show {
 
     public int getSeasonCount() {
         return seasonCount;
+    }
+
+    public void setShowId(int showId) {
+        this.showId = showId;
+    }
+
+    public void setShowName(String showName) {
+        this.showName = showName;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setGenres(String[] genres) {
+        this.genres = genres;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setRunTime(int runTime) {
+        this.runTime = runTime;
+    }
+
+    public void setPremiered(String premiered) {
+        this.premiered = premiered;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public void setImageUrl(ImageLinks imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLinks(Links links) {
+        this.links = links;
+    }
+
+    public void setSeasonCount(Integer seasonCount) {
+        this.seasonCount = seasonCount;
     }
 }

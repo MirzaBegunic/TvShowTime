@@ -1,10 +1,13 @@
 package com.example.tvshowtime.database;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "episodes_table", primaryKeys = {"showId", "seasonId", "episodeId"})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "episodes_table", primaryKeys = {"showId", "seasonId", "episodeId"}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {"showId","seasonId"}, childColumns = {"showId", "seasonId"}, onDelete = CASCADE))
 public class Episodes {
 
     private Integer showId;
@@ -105,5 +108,49 @@ public class Episodes {
 
     public void setSeenStatus(Boolean status){
         this.seenStatus = status;
+    }
+
+    public void setShowId(Integer showId) {
+        this.showId = showId;
+    }
+
+    public void setSeasonId(Integer seasonId) {
+        this.seasonId = seasonId;
+    }
+
+    public void setEpisodeId(Integer episodeId) {
+        this.episodeId = episodeId;
+    }
+
+    public void setEpisodeName(String episodeName) {
+        this.episodeName = episodeName;
+    }
+
+    public void setEpisodeNumber(Integer episodeNumber) {
+        this.episodeNumber = episodeNumber;
+    }
+
+    public void setSeasonNumber(Integer seasonNumber) {
+        this.seasonNumber = seasonNumber;
+    }
+
+    public void setAirDate(String airDate) {
+        this.airDate = airDate;
+    }
+
+    public void setAirStamp(String airStamp) {
+        this.airStamp = airStamp;
+    }
+
+    public void setRunTime(Integer runTime) {
+        this.runTime = runTime;
+    }
+
+    public void setImageUrl(ImageLinks imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

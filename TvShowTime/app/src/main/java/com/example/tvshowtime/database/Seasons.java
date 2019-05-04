@@ -1,10 +1,13 @@
 package com.example.tvshowtime.database;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "seasons_table", primaryKeys = {"showId", "seasonId"})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "seasons_table", primaryKeys = {"showId", "seasonId"}, foreignKeys = @ForeignKey(entity = Shows.class, parentColumns = "showId",childColumns = "showId", onDelete = CASCADE ))
 public class Seasons {
 
     private Integer showId;
@@ -85,5 +88,33 @@ public class Seasons {
 
     public void setWatchedCount(Integer count){
         this.watchedCount = count;
+    }
+
+    public void setShowId(Integer showId) {
+        this.showId = showId;
+    }
+
+    public void setSeasonId(Integer seasonId) {
+        this.seasonId = seasonId;
+    }
+
+    public void setSeasonNumber(Integer seasonNumber) {
+        this.seasonNumber = seasonNumber;
+    }
+
+    public void setEpisodeCount(Integer episodeCount) {
+        this.episodeCount = episodeCount;
+    }
+
+    public void setPremiereDate(String premiereDate) {
+        this.premiereDate = premiereDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setImageUrl(ImageLinks imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

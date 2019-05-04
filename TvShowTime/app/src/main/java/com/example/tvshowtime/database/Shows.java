@@ -22,4 +22,12 @@ public class Shows {
     public String getShowName() {
         return showName;
     }
+
+    public void setShowId(int showId) {
+        this.showId = showId;
+    }
+
+    public void setShowName(String showName) {
+        this.showName = showName;
+    }
 }
