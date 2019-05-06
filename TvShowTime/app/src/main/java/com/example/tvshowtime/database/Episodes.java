@@ -1,49 +1,82 @@
 package com.example.tvshowtime.database;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 
 import com.google.gson.annotations.SerializedName;
-
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "episodes_table", primaryKeys = {"showId", "seasonId", "episodeId"}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {"showId","seasonId"}, childColumns = {"showId", "seasonId"}, onDelete = CASCADE))
+@Entity(tableName = Episodes.EPISODESTABLENAME, primaryKeys = {Episodes.SHOWID, Episodes.SEASONID, Episodes.EPISODEID}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.SHOWID,Seasons.SEASONID}, childColumns = {Episodes.SHOWID, Episodes.SEASONID}, onDelete = CASCADE))
 public class Episodes {
 
-    private Integer showId;
+    public static final String EPISODESTABLENAME = "episodes_table";
+    public static final String SHOWID = "showId";
+    public static final String SEASONID = "seasonId";
+    public static final String EPISODEID = "episodeId";
+    public static final String EPISODENAME = "episodeName";
+    public static final String EPISODENUMBER = "episodeNumber";
+    public static final String SEASONNUMBER = "seasonNumber";
+    public static final String EPISODEAIRDATE = "episodeAirDate";
+    public static final String EPISODEAIRTIMESTAMP = "episodeAirTimeStamp";
+    public static final String EPISODERUNTIME = "episodeRunTime";
+    public static final String EPISODEIMAGELARGE = ImageLinks.IMAGELARGE;
+    public static final String EPISODEIMAGESMALL = ImageLinks.IMAGESMALL;
+    public static final String EPISODESUMMARY = "episodeSummary";
+    public static final String EPISODESEENSTATUS = "episodeSeenStatus";
 
-    private Integer seasonId;
+    @NonNull
+    @ColumnInfo(name = SHOWID)
+    private int showId;
 
+    @NonNull
+    @ColumnInfo(name = SEASONID)
+    private int seasonId;
+
+    @NonNull
     @SerializedName("id")
-    private Integer episodeId;
+    @ColumnInfo(name = EPISODEID)
+    private int episodeId;
 
     @SerializedName("name")
+    @ColumnInfo(name = EPISODENAME)
     private String episodeName;
 
     @SerializedName("number")
-    private Integer episodeNumber;
+    @ColumnInfo(name = EPISODENUMBER)
+    private int episodeNumber;
 
     @SerializedName("season")
-    private Integer seasonNumber;
+    @ColumnInfo(name = SEASONNUMBER)
+    private int seasonNumber;
 
     @SerializedName("airdate")
+    @ColumnInfo(name = EPISODEAIRDATE)
     private String airDate;
 
     @SerializedName("airstamp")
+    @ColumnInfo(name = EPISODEAIRTIMESTAMP)
     private String airStamp;
 
     @SerializedName("runtime")
-    private Integer runTime;
+    @ColumnInfo(name = EPISODERUNTIME)
+    private int runTime;
 
+    @Embedded
     @SerializedName("image")
     private ImageLinks imageUrl;
 
     @SerializedName("summary")
+    @ColumnInfo(name = EPISODESUMMARY)
     private String summary;
 
+    @ColumnInfo(name = EPISODESEENSTATUS)
     private Boolean seenStatus;
 
-    public Episodes(Integer showId, Integer seasonId, Integer episodeId, String episodeName, Integer episodeNumber, Integer seasonNumber, String airDate, String airStamp, Integer runTime, ImageLinks imageUrl, String summary) {
+    public Episodes(int showId, int seasonId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, String airStamp, int runTime, ImageLinks imageUrl, String summary, Boolean seenStatus) {
         this.showId = showId;
         this.seasonId = seasonId;
         this.episodeId = episodeId;
@@ -55,18 +88,18 @@ public class Episodes {
         this.runTime = runTime;
         this.imageUrl = imageUrl;
         this.summary = summary;
-        this.seenStatus = false;
+        this.seenStatus = seenStatus;
     }
 
-    public Integer getShowId() {
+    public int getShowId() {
         return showId;
     }
 
-    public Integer getSeasonId() {
+    public int getSeasonId() {
         return seasonId;
     }
 
-    public Integer getEpisodeId() {
+    public int getEpisodeId() {
         return episodeId;
     }
 
@@ -74,11 +107,11 @@ public class Episodes {
         return episodeName;
     }
 
-    public Integer getEpisodeNumber() {
+    public int getEpisodeNumber() {
         return episodeNumber;
     }
 
-    public Integer getSeasonNumber() {
+    public int getSeasonNumber() {
         return seasonNumber;
     }
 
@@ -90,7 +123,7 @@ public class Episodes {
         return airStamp;
     }
 
-    public Integer getRunTime() {
+    public int getRunTime() {
         return runTime;
     }
 
@@ -110,15 +143,15 @@ public class Episodes {
         this.seenStatus = status;
     }
 
-    public void setShowId(Integer showId) {
+    public void setShowId(int showId) {
         this.showId = showId;
     }
 
-    public void setSeasonId(Integer seasonId) {
+    public void setSeasonId(int seasonId) {
         this.seasonId = seasonId;
     }
 
-    public void setEpisodeId(Integer episodeId) {
+    public void setEpisodeId(int episodeId) {
         this.episodeId = episodeId;
     }
 
@@ -126,11 +159,11 @@ public class Episodes {
         this.episodeName = episodeName;
     }
 
-    public void setEpisodeNumber(Integer episodeNumber) {
+    public void setEpisodeNumber(int episodeNumber) {
         this.episodeNumber = episodeNumber;
     }
 
-    public void setSeasonNumber(Integer seasonNumber) {
+    public void setSeasonNumber(int seasonNumber) {
         this.seasonNumber = seasonNumber;
     }
 
@@ -142,7 +175,7 @@ public class Episodes {
         this.airStamp = airStamp;
     }
 
-    public void setRunTime(Integer runTime) {
+    public void setRunTime(int runTime) {
         this.runTime = runTime;
     }
 

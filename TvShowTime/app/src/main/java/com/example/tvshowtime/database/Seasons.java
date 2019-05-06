@@ -1,40 +1,64 @@
 package com.example.tvshowtime.database;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-
 import com.google.gson.annotations.SerializedName;
-
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "seasons_table", primaryKeys = {"showId", "seasonId"}, foreignKeys = @ForeignKey(entity = Shows.class, parentColumns = "showId",childColumns = "showId", onDelete = CASCADE ))
+@Entity(tableName = Seasons.SEASONSTABLENAME, primaryKeys = {Seasons.SHOWID, Seasons.SEASONID}, foreignKeys = @ForeignKey(entity = Shows.class, parentColumns = Shows.SHOWID,childColumns = Seasons.SEASONID, onDelete = CASCADE ))
 public class Seasons {
 
-    private Integer showId;
+    public static final String SEASONSTABLENAME = "seasons_table";
+    public static final String SHOWID = "showId";
+    public static final String SEASONID = "seasonId";
+    public static final String SEASONNUMBER = "seasonNumber";
+    public static final String SEASONEPISODECOUNT = "seasonEpisodeCount";
+    public static final String SEASONPREMIEREDATE = "seasonPremiereDate";
+    public static final String SEASONENDDATE = "seasonEndDate";
+    public static final String SEASONIMAGELARGE = ImageLinks.IMAGELARGE;
+    public static final String SEASONIMAGESMALL = ImageLinks.IMAGESMALL;
+    public static final String SEASONWATCHEDEPISODESCOUNT = "seasonWatchedEpisodesCount";
+    public static final String SEASONWATCHEDSTATUS = "seasonWatchedStatus";
 
+    @NonNull
+    @ColumnInfo(name = SHOWID)
+    private int showId;
+    
+    @NonNull
     @SerializedName("id")
-    private Integer seasonId;
+    @ColumnInfo(name = SEASONID, index = true)
+    private int seasonId;
 
     @SerializedName("number")
-    private Integer seasonNumber;
+    @ColumnInfo(name = SEASONNUMBER)
+    private int seasonNumber;
 
     @SerializedName("episodeOrder")
-    private Integer episodeCount;
+    @ColumnInfo(name = SEASONEPISODECOUNT)
+    private int episodeCount;
 
     @SerializedName("premiereDate")
+    @ColumnInfo(name = SEASONPREMIEREDATE)
     private String premiereDate;
 
     @SerializedName("endDate")
+    @ColumnInfo(name = SEASONENDDATE)
     private String endDate;
 
+    @Embedded
     @SerializedName("image")
     private ImageLinks imageUrl;
 
-    private Integer watchedCount;
+    @ColumnInfo(name = SEASONWATCHEDEPISODESCOUNT)
+    private int watchedCount;
 
+    @ColumnInfo(name = SEASONWATCHEDSTATUS)
     private Boolean seenStatus;
 
-    public Seasons(Integer showId, Integer seasonId, Integer seasonNumber, Integer episodeCount, String premiereDate, String endDate, ImageLinks imageUrl) {
+    public Seasons(int showId, int seasonId, int seasonNumber, int episodeCount, String premiereDate, String endDate, ImageLinks imageUrl, int watchedCount, Boolean seenStatus) {
         this.showId = showId;
         this.seasonId = seasonId;
         this.seasonNumber = seasonNumber;
@@ -42,23 +66,23 @@ public class Seasons {
         this.premiereDate = premiereDate;
         this.endDate = endDate;
         this.imageUrl = imageUrl;
-        this.seenStatus = false;
-        this.watchedCount = 0;
+        this.watchedCount = watchedCount;
+        this.seenStatus = seenStatus;
     }
 
-    public Integer getShowId() {
+    public int getShowId() {
         return showId;
     }
 
-    public Integer getSeasonId() {
+    public int getSeasonId() {
         return seasonId;
     }
 
-    public Integer getSeasonNumber() {
+    public int getSeasonNumber() {
         return seasonNumber;
     }
 
-    public Integer getEpisodeCount() {
+    public int getEpisodeCount() {
         return episodeCount;
     }
 
@@ -74,7 +98,7 @@ public class Seasons {
         return imageUrl;
     }
 
-    public Integer getWatchedCount() {
+    public int getWatchedCount() {
         return watchedCount;
     }
 
@@ -86,23 +110,23 @@ public class Seasons {
         this.seenStatus = seenStatus;
     }
 
-    public void setWatchedCount(Integer count){
+    public void setWatchedCount(int count){
         this.watchedCount = count;
     }
 
-    public void setShowId(Integer showId) {
+    public void setShowId(int showId) {
         this.showId = showId;
     }
 
-    public void setSeasonId(Integer seasonId) {
+    public void setSeasonId(int seasonId) {
         this.seasonId = seasonId;
     }
 
-    public void setSeasonNumber(Integer seasonNumber) {
+    public void setSeasonNumber(int seasonNumber) {
         this.seasonNumber = seasonNumber;
     }
 
-    public void setEpisodeCount(Integer episodeCount) {
+    public void setEpisodeCount(int episodeCount) {
         this.episodeCount = episodeCount;
     }
 
