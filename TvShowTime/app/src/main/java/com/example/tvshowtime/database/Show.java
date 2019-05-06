@@ -1,53 +1,85 @@
 package com.example.tvshowtime.database;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "show_table", foreignKeys = @ForeignKey(entity = Shows.class,parentColumns = "showId", childColumns = "showId", onDelete = CASCADE))
+@Entity(tableName = Show.SHOWTABLENAME, primaryKeys = Show.SHOWID,foreignKeys = @ForeignKey(entity = Shows.class,parentColumns = Shows.SHOWID, childColumns = Show.SHOWID, onDelete = CASCADE))
 public class Show {
 
+    public static final String SHOWTABLENAME = "show_table";
+    public static final String SHOWID = "showId";
+    public static final String SHOWNAME = "showName";
+    public static final String SHOWURL = "showUrl";
+    public static final String SHOWGENRES = "showGenres";
+    public static final String SHOWSTATUS = "showStatus";
+    public static final String SHOWRUNTIME = "showRunTime";
+    public static final String SHOWPREMIEREDDATE = "showPremieredDate";
+    public static final String SHOWRATING = "averageRating";
+    public static final String SHOWIMAGESMALL = ImageLinks.IMAGESMALL;
+    public static final String SHOWIMAGELARGE = ImageLinks.IMAGELARGE;
+    public static final String SHOWLINKSELF = "showLinkSelf";
+    public static final String SHOWLINKNEXTEP = "showLinkNextEp";
+    public static final String SHOWLINKPREVEP = "showLinkPrevEp";
+    public static final String SHOWDESCRIPTION = "showDescription";
+    public static final String SHOWSEASONCOUNT = "showSeasonCount";
+
     @SerializedName("id")
-    @PrimaryKey
+    @ColumnInfo(name = SHOWID)
     private int showId;
 
     @SerializedName("name")
+    @ColumnInfo(name = SHOWNAME)
     private String showName;
 
     @SerializedName("url")
+    @ColumnInfo(name = SHOWURL)
     private String url;
 
+    @TypeConverters(GenresConverter.class)
     @SerializedName("genres")
+    @ColumnInfo(name = SHOWGENRES)
     private String [] genres;
 
     @SerializedName("status")
+    @ColumnInfo(name = SHOWSTATUS)
     private String status;
 
     @SerializedName("runtime")
+    @ColumnInfo(name = SHOWRUNTIME)
     private int runTime;
 
     @SerializedName("premiered")
+    @ColumnInfo(name = SHOWPREMIEREDDATE)
     private String premiered;
 
+    @Embedded
     @SerializedName("rating")
-    private Double rating;
+    private Rating rating;
 
+    @Embedded
     @SerializedName("image")
     private ImageLinks imageUrl;
 
     @SerializedName("summary")
+    @ColumnInfo(name = SHOWDESCRIPTION)
     private String description;
 
+    @Embedded
     @SerializedName("_links")
     private Links links;
 
-    private Integer seasonCount;
+    @ColumnInfo(name = SHOWSEASONCOUNT)
+    private int seasonCount;
 
-    public Show(int showId, String showName, String url, String[] genres, String status, int runTime, String premiered, double rating, ImageLinks image, String description, Links links, int seasonCount) {
+
+    public Show(int showId, String showName, String url, String[] genres, String status, int runTime, String premiered, Rating rating, ImageLinks imageUrl, String description, Links links, int seasonCount) {
         this.showId = showId;
         this.showName = showName;
         this.url = url;
@@ -56,7 +88,7 @@ public class Show {
         this.runTime = runTime;
         this.premiered = premiered;
         this.rating = rating;
-        this.imageUrl = image;
+        this.imageUrl = imageUrl;
         this.description = description;
         this.links = links;
         this.seasonCount = seasonCount;
@@ -90,7 +122,7 @@ public class Show {
         return premiered;
     }
 
-    public double getRating() {
+    public Rating getRating() {
         return rating;
     }
 
@@ -138,7 +170,7 @@ public class Show {
         this.premiered = premiered;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(Rating rating) {
         this.rating = rating;
     }
 
