@@ -1,6 +1,7 @@
 package com.example.tvshowtime.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -23,7 +24,8 @@ public abstract class TvShowsDatabase extends RoomDatabase {
     public abstract DatabaseDao databaseDao();
 
     public static synchronized TvShowsDatabase getInstance(Context context){
-        if(instance!=null){
+        Log.d("DATABASE", "Getting Instance");
+        if(instance==null){
             instance = Room.databaseBuilder(context.getApplicationContext(),TvShowsDatabase.class,"tv_shows_database")
                     .fallbackToDestructiveMigration()
                     .build();

@@ -75,11 +75,9 @@ public class Show {
     @SerializedName("_links")
     private Links links;
 
-    @ColumnInfo(name = SHOWSEASONCOUNT)
-    private int seasonCount;
 
 
-    public Show(int showId, String showName, String url, String[] genres, String status, int runTime, String premiered, Rating rating, ImageLinks imageUrl, String description, Links links, int seasonCount) {
+    public Show(int showId, String showName, String url, String[] genres, String status, int runTime, String premiered, Rating rating, ImageLinks imageUrl, String description, Links links) {
         this.showId = showId;
         this.showName = showName;
         this.url = url;
@@ -91,7 +89,6 @@ public class Show {
         this.imageUrl = imageUrl;
         this.description = description;
         this.links = links;
-        this.seasonCount = seasonCount;
     }
 
     public int getShowId() {
@@ -138,10 +135,6 @@ public class Show {
         return links;
     }
 
-    public int getSeasonCount() {
-        return seasonCount;
-    }
-
     public void setShowId(int showId) {
         this.showId = showId;
     }
@@ -184,9 +177,5 @@ public class Show {
 
     public void setLinks(Links links) {
         this.links = links;
-    }
-
-    public void setSeasonCount(Integer seasonCount) {
-        this.seasonCount = seasonCount;
     }
 }
