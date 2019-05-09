@@ -1,0 +1,546 @@
+[
+    {
+        "score": 17.59705,
+        "show": {
+            "id": 80,
+            "url": "http://www.tvmaze.com/shows/80/modern-family",
+            "name": "Modern Family",
+            "type": "Scripted",
+            "language": "English",
+            "genres": [
+                "Comedy",
+                "Family"
+            ],
+            "status": "Running",
+            "runtime": 30,
+            "premiered": "2009-09-23",
+            "officialSite": "http://abc.go.com/shows/modern-family",
+            "schedule": {
+                "time": "21:00",
+                "days": [
+                    "Wednesday"
+                ]
+            },
+            "rating": {
+                "average": 7.9
+            },
+            "weight": 99,
+            "network": {
+                "id": 3,
+                "name": "ABC",
+                "country": {
+                    "name": "United States",
+                    "code": "US",
+                    "timezone": "America/New_York"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": 22622,
+                "thetvdb": 95011,
+                "imdb": "tt1442437"
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/147/369345.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/147/369345.jpg"
+            },
+            "summary": "<p><b>Modern Family</b> revolves around three different types of families (nuclear, step- and same-sex) living in the Los Angeles area, who are interrelated through Jay Pritchett and his children, Claire Dunphy (née Pritchett) and Mitchell Pritchett. Patriarch Jay is remarried to a much younger woman, Gloria Delgado Pritchett (née Ramirez), a passionate Colombian with whom he has an infant son, Fulgencio (Joe) Pritchett, and a son from Gloria's previous marriage, Manny Delgado.</p><p>Jay's daughter Claire was a homemaker, but has returned to the business world. She is now the chief executive of her father's previous business, Pritchett's Closets and Blinds. She is married to Phil Dunphy, a realtor and self-professed \"cool dad\". They have three children: Haley Dunphy, a stereotypical ditzy teenage girl; Alex Dunphy, a nerdy, smart middle child; and Luke Dunphy, the off-beat only son.</p><p>Jay's lawyer son Mitchell and his husband Cameron Tucker have one daughter, Lily Tucker-Pritchett. As the name suggests, this family represents a modern-day family, and episodes are comically based on situations which many families encounter in real life.</p>",
+            "updated": 1556917521,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/80"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/1634359"
+                },
+                "nextepisode": {
+                    "href": "http://api.tvmaze.com/episodes/1634790"
+                }
+            }
+        }
+    },
+    {
+        "score": 16.512655,
+        "show": {
+            "id": 37120,
+            "url": "http://www.tvmaze.com/shows/37120/modern-love",
+            "name": "Modern Love",
+            "type": "Scripted",
+            "language": "English",
+            "genres": [],
+            "status": "In Development",
+            "runtime": null,
+            "premiered": null,
+            "officialSite": null,
+            "schedule": {
+                "time": "",
+                "days": []
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 0,
+            "network": null,
+            "webChannel": {
+                "id": 3,
+                "name": "Amazon Prime",
+                "country": null
+            },
+            "externals": {
+                "tvrage": null,
+                "thetvdb": null,
+                "imdb": null
+            },
+            "image": null,
+            "summary": "<p>Over eight standalone episodes, the series will explore love in its \nmultitude of forms – including sexual, romantic, familial, platonic, and\n self love.</p>",
+            "updated": 1528828387,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/37120"
+                }
+            }
+        }
+    },
+    {
+        "score": 16.414158,
+        "show": {
+            "id": 932,
+            "url": "http://www.tvmaze.com/shows/932/modern-marvels",
+            "name": "Modern Marvels",
+            "type": "Documentary",
+            "language": "English",
+            "genres": [],
+            "status": "Running",
+            "runtime": 60,
+            "premiered": "1993-12-10",
+            "officialSite": null,
+            "schedule": {
+                "time": "21:00",
+                "days": [
+                    "Tuesday"
+                ]
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 72,
+            "network": {
+                "id": 74,
+                "name": "H2",
+                "country": {
+                    "name": "United States",
+                    "code": "US",
+                    "timezone": "America/New_York"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": 4505,
+                "thetvdb": 71697,
+                "imdb": "tt0199248"
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/6/16175.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/6/16175.jpg"
+            },
+            "summary": "<p>HISTORY's longest-running series moves to H2. Modern Marvels celebrates the ingenuity, invention and imagination found in the world around us. From commonplace items like ink and coffee to architectural masterpieces and engineering disasters, the hit series goes beyond the basics to provide insight and history into things we wonder about and that impact our lives. This series tells fascinating stories of the doers, the dreamers and sometime-schemers that create everyday items, technological breakthroughs and manmade wonders. The hit series goes deep to explore the leading edge of human inspiration and ambition.</p>",
+            "updated": 1556886607,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/932"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/1650977"
+                }
+            }
+        }
+    },
+    {
+        "score": 12.288311,
+        "show": {
+            "id": 39174,
+            "url": "http://www.tvmaze.com/shows/39174/ms-fishers-modern-murder-mysteries",
+            "name": "Ms. Fisher's Modern Murder Mysteries",
+            "type": "Scripted",
+            "language": "English",
+            "genres": [
+                "Drama",
+                "Crime",
+                "Mystery"
+            ],
+            "status": "To Be Determined",
+            "runtime": 120,
+            "premiered": "2019-02-21",
+            "officialSite": "https://7plus.com.au/ms-fishers-modern-murder-mysteries",
+            "schedule": {
+                "time": "20:30",
+                "days": [
+                    "Thursday"
+                ]
+            },
+            "rating": {
+                "average": 7.9
+            },
+            "weight": 96,
+            "network": {
+                "id": 251,
+                "name": "Seven Network",
+                "country": {
+                    "name": "Australia",
+                    "code": "AU",
+                    "timezone": "Australia/Sydney"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": null,
+                "thetvdb": 356221,
+                "imdb": "tt9224216"
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/185/462854.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/185/462854.jpg"
+            },
+            "summary": "<p>Set in 1964, gorgeously reckless Peregrine \nFisher inherits a windfall when the famous aunt she never knew goes \nmissing over the highlands of New Guinea. Peregrine must prove herself \nbrilliant enough to become a world class private detective in her own \nright.</p>",
+            "updated": 1556053286,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/39174"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/1613719"
+                }
+            }
+        }
+    },
+    {
+        "score": 11.520676,
+        "show": {
+            "id": 11072,
+            "url": "http://www.tvmaze.com/shows/11072/modern-toss",
+            "name": "Modern Toss",
+            "type": "Animation",
+            "language": "English",
+            "genres": [
+                "Comedy"
+            ],
+            "status": "Ended",
+            "runtime": 30,
+            "premiered": "2006-07-11",
+            "officialSite": "http://www.channel4.com/programmes/modern-toss",
+            "schedule": {
+                "time": "23:00",
+                "days": [
+                    "Tuesday"
+                ]
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 0,
+            "network": {
+                "id": 45,
+                "name": "Channel 4",
+                "country": {
+                    "name": "United Kingdom",
+                    "code": "GB",
+                    "timezone": "Europe/London"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": 12806,
+                "thetvdb": 81439,
+                "imdb": null
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/37/93018.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/37/93018.jpg"
+            },
+            "summary": "<p>A cast of maladjusted, foul-mouthed fools star in a bang-out-of-order cartoon sketch show.</p>",
+            "updated": 1457243980,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/11072"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/554977"
+                }
+            }
+        }
+    },
+    {
+        "score": 11.520676,
+        "show": {
+            "id": 26004,
+            "url": "http://www.tvmaze.com/shows/26004/modern-traveler",
+            "name": "Modern Traveler",
+            "type": "Reality",
+            "language": "English",
+            "genres": [
+                "Adventure",
+                "Travel"
+            ],
+            "status": "Ended",
+            "runtime": 30,
+            "premiered": "2016-01-20",
+            "officialSite": "http://www.ora.tv/moderntraveler",
+            "schedule": {
+                "time": "",
+                "days": []
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 0,
+            "network": {
+                "id": 1368,
+                "name": "Ora TV",
+                "country": {
+                    "name": "United States",
+                    "code": "US",
+                    "timezone": "America/New_York"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": null,
+                "thetvdb": null,
+                "imdb": "tt5208558"
+            },
+            "image": null,
+            "summary": "<p><b>Modern Traveler</b> demystifies the challenges of travel and shows curious globe-trotters how they can get the most out of a destination -- hitting all the hotspots, but also having deeper experiences with the locals who know it best.</p>",
+            "updated": 1489370951,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/26004"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/1098065"
+                }
+            }
+        }
+    },
+    {
+        "score": 11.520676,
+        "show": {
+            "id": 11622,
+            "url": "http://www.tvmaze.com/shows/11622/modern-shooter",
+            "name": "Modern Shooter",
+            "type": "Reality",
+            "language": "English",
+            "genres": [],
+            "status": "Running",
+            "runtime": 30,
+            "premiered": "2015-01-06",
+            "officialSite": "http://www.thesportsmanchannel.com/shows/modern-shooter/",
+            "schedule": {
+                "time": "20:00",
+                "days": [
+                    "Monday"
+                ]
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 3,
+            "network": {
+                "id": 217,
+                "name": "Sportsman Channel",
+                "country": {
+                    "name": "United States",
+                    "code": "US",
+                    "timezone": "America/New_York"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": null,
+                "thetvdb": 293787,
+                "imdb": null
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/39/98572.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/39/98572.jpg"
+            },
+            "summary": "<p><b>Modern Shooter</b> is a new show about the world of guns and gun enthusiasm. We pull back the curtain on the gun industry and visit some of the worlds best gun manufacturers. Along the way we tell stories and learn from the pros and prolific gun personalities. Join us as we explore and learn from America's diverse gun culture.</p>",
+            "updated": 1477766732,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/11622"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/570059"
+                }
+            }
+        }
+    },
+    {
+        "score": 11.520676,
+        "show": {
+            "id": 8289,
+            "url": "http://www.tvmaze.com/shows/8289/modern-farmer",
+            "name": "Modern Farmer",
+            "type": "Scripted",
+            "language": "Korean",
+            "genres": [
+                "Comedy",
+                "Family",
+                "Romance"
+            ],
+            "status": "Ended",
+            "runtime": 65,
+            "premiered": "2014-10-18",
+            "officialSite": "http://program.sbs.co.kr/builder/programMainList.do?pgm_id=22000004561",
+            "schedule": {
+                "time": "20:45",
+                "days": [
+                    "Saturday",
+                    "Sunday"
+                ]
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 0,
+            "network": {
+                "id": 127,
+                "name": "SBS",
+                "country": {
+                    "name": "Korea, Republic of",
+                    "code": "KR",
+                    "timezone": "Asia/Seoul"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": 44757,
+                "thetvdb": 286130,
+                "imdb": "tt4135572"
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/29/74683.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/29/74683.jpg"
+            },
+            "summary": "<p>\"Excellent Souls (ExSo)\" is a rock band consists of Lee Min Ki, Kang Hyuk, Yoo Han Chul and Han Ki Joon. However, they were unable to debut due to certain circumstances and they continue to live as normal ordinary people. After seven years, Min Ki was caught by a loan shark. In order to pay back his debt, he decided to move to the countryside and becoming a farmer to grow cabbages. The other ExSo members also follow Min Ki to the village with the aim to realize their old dream to debut and make an album. While coming to the Hadurok Ri village, Min Ki accidentally jumped into his childhood first love, Yoonhee. This drama tells the stories of their dreams, loves and friendships.</p>",
+            "updated": 1483278816,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/8289"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/456987"
+                }
+            }
+        }
+    },
+    {
+        "score": 11.520676,
+        "show": {
+            "id": 13757,
+            "url": "http://www.tvmaze.com/shows/13757/modern-times",
+            "name": "Modern Times",
+            "type": "Documentary",
+            "language": "English",
+            "genres": [],
+            "status": "Ended",
+            "runtime": 50,
+            "premiered": "1996-04-24",
+            "officialSite": "http://www.bbc.co.uk/programmes/b00cktq4",
+            "schedule": {
+                "time": "23:50",
+                "days": []
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 0,
+            "network": {
+                "id": 37,
+                "name": "BBC Two",
+                "country": {
+                    "name": "United Kingdom",
+                    "code": "GB",
+                    "timezone": "Europe/London"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": null,
+                "thetvdb": 279076,
+                "imdb": "tt0783864"
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/47/118533.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/47/118533.jpg"
+            },
+            "summary": "<p>Series documenting aspects of the contemporary world.</p>",
+            "updated": 1506761707,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/13757"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/636616"
+                }
+            }
+        }
+    },
+    {
+        "score": 11.520676,
+        "show": {
+            "id": 13666,
+            "url": "http://www.tvmaze.com/shows/13666/modern-spies",
+            "name": "Modern Spies",
+            "type": "Documentary",
+            "language": "English",
+            "genres": [
+                "Adventure",
+                "Espionage"
+            ],
+            "status": "Ended",
+            "runtime": 60,
+            "premiered": "2012-04-02",
+            "officialSite": "http://www.bbc.co.uk/programmes/b01fqc6z",
+            "schedule": {
+                "time": "21:00",
+                "days": [
+                    "Monday"
+                ]
+            },
+            "rating": {
+                "average": null
+            },
+            "weight": 0,
+            "network": {
+                "id": 37,
+                "name": "BBC Two",
+                "country": {
+                    "name": "United Kingdom",
+                    "code": "GB",
+                    "timezone": "Europe/London"
+                }
+            },
+            "webChannel": null,
+            "externals": {
+                "tvrage": null,
+                "thetvdb": 257809,
+                "imdb": null
+            },
+            "image": {
+                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/47/117862.jpg",
+                "original": "http://static.tvmaze.com/uploads/images/original_untouched/47/117862.jpg"
+            },
+            "summary": "<p>How does the fictional world of spying compare with the reality? Peter Taylor looks at the real world of modern spies.</p>",
+            "updated": 1497283226,
+            "_links": {
+                "self": {
+                    "href": "http://api.tvmaze.com/shows/13666"
+                },
+                "previousepisode": {
+                    "href": "http://api.tvmaze.com/episodes/634487"
+                }
+            }
+        }
+    }
+]

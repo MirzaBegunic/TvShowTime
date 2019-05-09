@@ -1,0 +1,2 @@
+Napravit call za vracanje showova po searchu. Done
+Napraviti insert za jedan show koji dobijemo proizvoljno od usera.

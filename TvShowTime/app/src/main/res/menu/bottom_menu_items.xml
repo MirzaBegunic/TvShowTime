@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/myShows"
+        android:title="@string/my_shows_title"
+        android:icon="@drawable/myshows_icon"/>
+    <item android:id="@+id/discover"
+        android:title="@string/discover_title"
+        android:icon="@drawable/discover_icon"/>
+    <item android:id="@+id/stats"
+        android:title="@string/stats_title"
+        android:icon="@drawable/stats_icon"/>
+</menu>
