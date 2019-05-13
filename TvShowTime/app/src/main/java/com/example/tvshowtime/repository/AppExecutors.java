@@ -1,19 +1,24 @@
 package com.example.tvshowtime.repository;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AppExecutors {
+
     private static AppExecutors sInstance;
-    private Executor mDiskAndNetworkExecutor;
-    private Executor mDatabaseExecutor;
+    private ExecutorService mDiskAndNetworkExecutor;
+    private ExecutorService mDiskExecutor;
+    private ExecutorService mNetworkExecutor;
+
     public AppExecutors() {
-        this(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor());
+        this(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(),Executors.newSingleThreadExecutor());
     }
 
-    public AppExecutors(Executor mDiskAndNetworkExecutor, Executor mDatabaseExecutor) {
+    public AppExecutors(ExecutorService mDiskAndNetworkExecutor, ExecutorService mDiskExecutor, ExecutorService mNetworkExecutor) {
         this.mDiskAndNetworkExecutor = mDiskAndNetworkExecutor;
-        this.mDatabaseExecutor = mDatabaseExecutor;
+        this.mDiskExecutor = mDiskExecutor;
+        this.mNetworkExecutor = mNetworkExecutor;
     }
 
     public static synchronized AppExecutors getInstance(){
@@ -23,11 +28,15 @@ public class AppExecutors {
         return sInstance;
     }
 
-    public Executor diskAndNetworkExecutor() {
+    public ExecutorService diskAndNetworkExecutor() {
         return mDiskAndNetworkExecutor;
     }
 
-    public Executor databaseExecutor(){
-        return mDatabaseExecutor;
+    public ExecutorService diskExecutor(){
+        return mDiskExecutor;
+    }
+
+    public ExecutorService networkExecutor(){
+        return mNetworkExecutor;
     }
 }

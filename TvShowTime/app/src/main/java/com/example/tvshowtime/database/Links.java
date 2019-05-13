@@ -10,17 +10,17 @@ public class Links {
 
     @SerializedName("self")
     @TypeConverters(LinkTypeConverter.class)
-    @ColumnInfo(name = Show.SHOWLINKSELF)
+    @ColumnInfo(name = Show.col_ShowSelfLink)
     private Link self;
 
     @SerializedName("previousepisode")
     @TypeConverters(LinkTypeConverter.class)
-    @ColumnInfo(name = Show.SHOWLINKPREVEP)
+    @ColumnInfo(name = Show.col_ShowLinkPreviousEpisode)
     private Link previousEpisode;
 
     @SerializedName("nextepisode")
     @TypeConverters(LinkTypeConverter.class)
-    @ColumnInfo(name = Show.SHOWLINKNEXTEP)
+    @ColumnInfo(name = Show.col_ShowLinkNextEpisode)
     private Link nextEpisode;
 
     public Links(Link self, Link previousEpisode, Link nextEpisode){

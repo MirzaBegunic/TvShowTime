@@ -21,7 +21,6 @@ public abstract class TvShowsDatabase extends RoomDatabase {
 
     public abstract CastDao castDao();
 
-    public abstract DatabaseDao databaseDao();
 
     public static synchronized TvShowsDatabase getInstance(Context context){
         Log.d("DATABASE", "Getting Instance");

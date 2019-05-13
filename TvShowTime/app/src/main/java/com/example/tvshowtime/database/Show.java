@@ -10,53 +10,53 @@ import com.google.gson.annotations.SerializedName;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = Show.SHOWTABLENAME, primaryKeys = Show.SHOWID,foreignKeys = @ForeignKey(entity = Shows.class,parentColumns = Shows.SHOWID, childColumns = Show.SHOWID, onDelete = CASCADE))
+@Entity(tableName = Show.tab_ShowTable, primaryKeys = Show.col_ShowId,foreignKeys = @ForeignKey(entity = Shows.class,parentColumns = Shows.col_ShowId, childColumns = Show.col_ShowId, onDelete = CASCADE))
 public class Show {
 
-    public static final String SHOWTABLENAME = "show_table";
-    public static final String SHOWID = "showId";
-    public static final String SHOWNAME = "showName";
-    public static final String SHOWURL = "showUrl";
-    public static final String SHOWGENRES = "showGenres";
-    public static final String SHOWSTATUS = "showStatus";
-    public static final String SHOWRUNTIME = "showRunTime";
-    public static final String SHOWPREMIEREDDATE = "showPremieredDate";
-    public static final String SHOWRATING = "averageRating";
-    public static final String SHOWIMAGESMALL = ImageLinks.IMAGESMALL;
-    public static final String SHOWIMAGELARGE = ImageLinks.IMAGELARGE;
-    public static final String SHOWLINKSELF = "showLinkSelf";
-    public static final String SHOWLINKNEXTEP = "showLinkNextEp";
-    public static final String SHOWLINKPREVEP = "showLinkPrevEp";
-    public static final String SHOWDESCRIPTION = "showDescription";
-    public static final String SHOWSEASONCOUNT = "showSeasonCount";
+    public static final String tab_ShowTable = "show_table";
+    public static final String col_ShowId = "showId";
+    public static final String col_ShowName = "showName";
+    public static final String col_ShowUrl = "showUrl";
+    public static final String col_ShowGenres = "showGenres";
+    public static final String col_ShowStatus = "showStatus";
+    public static final String col_ShowRunTime = "showRunTime";
+    public static final String col_ShowPremier = "showPremieredDate";
+    public static final String col_ShowRating = "averageRating";
+    public static final String col_ShowImageSmall = ImageLinks.IMAGESMALL;
+    public static final String col_ShowImageLarge = ImageLinks.IMAGELARGE;
+    public static final String col_ShowSelfLink = "showLinkSelf";
+    public static final String col_ShowLinkNextEpisode = "showLinkNextEp";
+    public static final String col_ShowLinkPreviousEpisode = "showLinkPrevEp";
+    public static final String col_ShowDescription = "showDescription";
+    public static final String col_ShowSeasonCount = "showSeasonCount";
 
     @SerializedName("id")
-    @ColumnInfo(name = SHOWID)
+    @ColumnInfo(name = col_ShowId)
     private int showId;
 
     @SerializedName("name")
-    @ColumnInfo(name = SHOWNAME)
+    @ColumnInfo(name = col_ShowName)
     private String showName;
 
     @SerializedName("url")
-    @ColumnInfo(name = SHOWURL)
+    @ColumnInfo(name = col_ShowUrl)
     private String url;
 
     @TypeConverters(GenresConverter.class)
     @SerializedName("genres")
-    @ColumnInfo(name = SHOWGENRES)
+    @ColumnInfo(name = col_ShowGenres)
     private String [] genres;
 
     @SerializedName("status")
-    @ColumnInfo(name = SHOWSTATUS)
+    @ColumnInfo(name = col_ShowStatus)
     private String status;
 
     @SerializedName("runtime")
-    @ColumnInfo(name = SHOWRUNTIME)
+    @ColumnInfo(name = col_ShowRunTime)
     private int runTime;
 
     @SerializedName("premiered")
-    @ColumnInfo(name = SHOWPREMIEREDDATE)
+    @ColumnInfo(name = col_ShowPremier)
     private String premiered;
 
     @Embedded
@@ -68,7 +68,7 @@ public class Show {
     private ImageLinks imageUrl;
 
     @SerializedName("summary")
-    @ColumnInfo(name = SHOWDESCRIPTION)
+    @ColumnInfo(name = col_ShowDescription)
     private String description;
 
     @Embedded

@@ -5,57 +5,59 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
+
 import com.google.gson.annotations.SerializedName;
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = Seasons.SEASONSTABLENAME, primaryKeys = {Seasons.SHOWID, Seasons.SEASONID}, foreignKeys = @ForeignKey(entity = Shows.class, parentColumns = Shows.SHOWID,childColumns = Seasons.SEASONID, onDelete = CASCADE ))
+@Entity(tableName = Seasons.tab_SeasonsTableName, indices = {@Index(value = {Seasons.col_SeasonNumber, Seasons.col_ShowId}, unique = true)}, primaryKeys = {Seasons.col_ShowId, Seasons.col_SeasonId}, foreignKeys = @ForeignKey(entity = Shows.class, parentColumns = Shows.col_ShowId,childColumns = Seasons.col_ShowId,onDelete = CASCADE ))
 public class Seasons {
 
-    public static final String SEASONSTABLENAME = "seasons_table";
-    public static final String SHOWID = "showId";
-    public static final String SEASONID = "seasonId";
-    public static final String SEASONNUMBER = "seasonNumber";
-    public static final String SEASONEPISODECOUNT = "seasonEpisodeCount";
-    public static final String SEASONPREMIEREDATE = "seasonPremiereDate";
-    public static final String SEASONENDDATE = "seasonEndDate";
-    public static final String SEASONIMAGELARGE = ImageLinks.IMAGELARGE;
-    public static final String SEASONIMAGESMALL = ImageLinks.IMAGESMALL;
-    public static final String SEASONWATCHEDEPISODESCOUNT = "seasonWatchedEpisodesCount";
-    public static final String SEASONWATCHEDSTATUS = "seasonWatchedStatus";
+    public static final String tab_SeasonsTableName = "seasons_table";
+    public static final String col_ShowId = "showId";
+    public static final String col_SeasonId = "seasonId";
+    public static final String col_SeasonNumber = "seasonNumber";
+    public static final String col_SeasonEpisodeCount = "seasonEpisodeCount";
+    public static final String col_SeasonPremiereDate = "seasonPremiereDate";
+    public static final String col_SeasonEndDate = "seasonEndDate";
+    public static final String col_SeasonImageLarge = ImageLinks.IMAGELARGE;
+    public static final String col_SeasonImageSmall = ImageLinks.IMAGESMALL;
+    public static final String col_SeasonWatchedCount = "seasonWatchedEpisodesCount";
+    public static final String col_SeasonWatchedStatus = "seasonWatchedStatus";
 
     @NonNull
-    @ColumnInfo(name = SHOWID)
+    @ColumnInfo(name = col_ShowId)
     private int showId;
     
     @NonNull
     @SerializedName("id")
-    @ColumnInfo(name = SEASONID, index = true)
+    @ColumnInfo(name = col_SeasonId, index = true)
     private int seasonId;
 
     @SerializedName("number")
-    @ColumnInfo(name = SEASONNUMBER)
+    @ColumnInfo(name = col_SeasonNumber)
     private int seasonNumber;
 
     @SerializedName("episodeOrder")
-    @ColumnInfo(name = SEASONEPISODECOUNT)
+    @ColumnInfo(name = col_SeasonEpisodeCount)
     private int episodeCount;
 
     @SerializedName("premiereDate")
-    @ColumnInfo(name = SEASONPREMIEREDATE)
+    @ColumnInfo(name = col_SeasonPremiereDate)
     private String premiereDate;
 
     @SerializedName("endDate")
-    @ColumnInfo(name = SEASONENDDATE)
+    @ColumnInfo(name = col_SeasonEndDate)
     private String endDate;
 
     @Embedded
     @SerializedName("image")
     private ImageLinks imageUrl;
 
-    @ColumnInfo(name = SEASONWATCHEDEPISODESCOUNT)
+    @ColumnInfo(name = col_SeasonWatchedCount)
     private int watchedCount;
 
-    @ColumnInfo(name = SEASONWATCHEDSTATUS)
+    @ColumnInfo(name = col_SeasonWatchedStatus)
     private Boolean seenStatus;
 
     public Seasons(int showId, int seasonId, int seasonNumber, int episodeCount, String premiereDate, String endDate, ImageLinks imageUrl, int watchedCount, Boolean seenStatus) {

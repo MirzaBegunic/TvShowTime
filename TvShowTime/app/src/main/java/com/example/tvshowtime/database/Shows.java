@@ -2,19 +2,18 @@ package com.example.tvshowtime.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = Shows.SHOWSTABLENAME, primaryKeys = Shows.SHOWID)
+@Entity(tableName = Shows.tab_ShowsTable, primaryKeys = Shows.col_ShowId)
 public class Shows {
 
-    public static final String SHOWSTABLENAME = "shows_table";
-    public static final String SHOWID = "showId";
-    public static final String SHOWNAME = "showName";
+    public static final String tab_ShowsTable = "shows_table";
+    public static final String col_ShowId = "showId";
+    public static final String col_ShowName = "showName";
 
-    @ColumnInfo(name = SHOWID)
+    @ColumnInfo(name = col_ShowId)
     private int showId;
 
-    @ColumnInfo(name = SHOWNAME)
+    @ColumnInfo(name = col_ShowName)
     private String showName;
 
     public Shows(int showId, String showName){

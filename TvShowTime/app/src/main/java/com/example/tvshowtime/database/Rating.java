@@ -3,7 +3,7 @@ package com.example.tvshowtime.database;
 import androidx.room.ColumnInfo;
 
 public class Rating {
-    @ColumnInfo(name = Show.SHOWRATING)
+    @ColumnInfo(name = Show.col_ShowRating)
     private double average;
 
     public Rating(double average) {
