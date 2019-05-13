@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Person {
 
-    public static final String PERSONID = "personId";
-    public static final String PERSONNAME = "personName";
+    public static final String mPersonId = "personId";
+    public static final String mPersonName = "personName";
 
     @SerializedName("id")
-    @ColumnInfo(name = PERSONID)
+    @ColumnInfo(name = mPersonId)
     private int id;
 
     @SerializedName("name")
-    @ColumnInfo(name = PERSONNAME)
+    @ColumnInfo(name = mPersonName)
     private String name;
 
     public Person(int id, String name) {

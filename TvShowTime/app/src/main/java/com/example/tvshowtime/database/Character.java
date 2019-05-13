@@ -7,15 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Character {
 
-    public static final String CHARACTERID = "characterId";
-    public static final String CHARACTERNAME = "characterName";
+    public static final String mCharacterId = "characterId";
+    public static final String mCharacterName = "characterName";
 
     @SerializedName("id")
-    @ColumnInfo(name = CHARACTERID)
+    @ColumnInfo(name = mCharacterId)
     private int id;
 
     @SerializedName("name")
-    @ColumnInfo(name = CHARACTERNAME)
+    @ColumnInfo(name = mCharacterName)
     private String name;
 
     @SerializedName("image")

@@ -5,64 +5,59 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
+import androidx.room.Index;
 
 import com.google.gson.annotations.SerializedName;
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = Episodes.EPISODESTABLENAME, primaryKeys = {Episodes.SHOWID, Episodes.SEASONID, Episodes.EPISODEID}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.SHOWID,Seasons.SEASONID}, childColumns = {Episodes.SHOWID, Episodes.SEASONID}, onDelete = CASCADE))
+@Entity(tableName = Episodes.tab_EpisodesTableName, indices = {@Index(value = {Episodes.col_SeasonNumber},unique = false)},primaryKeys = {Episodes.col_ShowId, Episodes.col_EpisodeId}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.col_ShowId,Seasons.col_SeasonNumber}, childColumns = {Episodes.col_ShowId, Episodes.col_SeasonNumber}, onDelete = CASCADE))
 public class Episodes {
 
-    public static final String EPISODESTABLENAME = "episodes_table";
-    public static final String SHOWID = "showId";
-    public static final String SEASONID = "seasonId";
-    public static final String EPISODEID = "episodeId";
-    public static final String EPISODENAME = "episodeName";
-    public static final String EPISODENUMBER = "episodeNumber";
-    public static final String SEASONNUMBER = "seasonNumber";
-    public static final String EPISODEAIRDATE = "episodeAirDate";
-    public static final String EPISODEAIRTIMESTAMP = "episodeAirTimeStamp";
-    public static final String EPISODERUNTIME = "episodeRunTime";
-    public static final String EPISODEIMAGELARGE = ImageLinks.IMAGELARGE;
-    public static final String EPISODEIMAGESMALL = ImageLinks.IMAGESMALL;
-    public static final String EPISODESUMMARY = "episodeSummary";
-    public static final String EPISODESEENSTATUS = "episodeSeenStatus";
+    public static final String tab_EpisodesTableName = "episodes_table";
+    public static final String col_ShowId = "showId";
+    public static final String col_EpisodeId = "episodeId";
+    public static final String col_EpisodeName = "episodeName";
+    public static final String col_EpisodeNumber = "episodeNumber";
+    public static final String col_SeasonNumber = "seasonNumber";
+    public static final String col_EpisodeAirDate = "episodeAirDate";
+    public static final String col_EpisodeAirTimeStamp = "episodeAirTimeStamp";
+    public static final String col_EpisodeRuntime = "episodeRunTime";
+    public static final String col_EpisodeImageLarge = ImageLinks.IMAGELARGE;
+    public static final String col_EpisodeImageSmall = ImageLinks.IMAGESMALL;
+    public static final String col_EpisodeSummary = "episodeSummary";
+    public static final String col_EpisodeSeenStatus = "episodeSeenStatus";
 
     @NonNull
-    @ColumnInfo(name = SHOWID)
+    @ColumnInfo(name = col_ShowId)
     private int showId;
 
     @NonNull
-    @ColumnInfo(name = SEASONID)
-    private int seasonId;
-
-    @NonNull
     @SerializedName("id")
-    @ColumnInfo(name = EPISODEID)
+    @ColumnInfo(name = col_EpisodeId)
     private int episodeId;
 
     @SerializedName("name")
-    @ColumnInfo(name = EPISODENAME)
+    @ColumnInfo(name = col_EpisodeName)
     private String episodeName;
 
     @SerializedName("number")
-    @ColumnInfo(name = EPISODENUMBER)
+    @ColumnInfo(name = col_EpisodeNumber)
     private int episodeNumber;
 
     @SerializedName("season")
-    @ColumnInfo(name = SEASONNUMBER)
+    @ColumnInfo(name = col_SeasonNumber)
     private int seasonNumber;
 
     @SerializedName("airdate")
-    @ColumnInfo(name = EPISODEAIRDATE)
+    @ColumnInfo(name = col_EpisodeAirDate)
     private String airDate;
 
     @SerializedName("airstamp")
-    @ColumnInfo(name = EPISODEAIRTIMESTAMP)
+    @ColumnInfo(name = col_EpisodeAirTimeStamp)
     private String airStamp;
 
     @SerializedName("runtime")
-    @ColumnInfo(name = EPISODERUNTIME)
+    @ColumnInfo(name = col_EpisodeRuntime)
     private int runTime;
 
     @Embedded
@@ -70,15 +65,14 @@ public class Episodes {
     private ImageLinks imageUrl;
 
     @SerializedName("summary")
-    @ColumnInfo(name = EPISODESUMMARY)
+    @ColumnInfo(name = col_EpisodeSummary)
     private String summary;
 
-    @ColumnInfo(name = EPISODESEENSTATUS)
+    @ColumnInfo(name = col_EpisodeSeenStatus)
     private Boolean seenStatus;
 
-    public Episodes(int showId, int seasonId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, String airStamp, int runTime, ImageLinks imageUrl, String summary, Boolean seenStatus) {
+    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, String airStamp, int runTime, ImageLinks imageUrl, String summary, Boolean seenStatus) {
         this.showId = showId;
-        this.seasonId = seasonId;
         this.episodeId = episodeId;
         this.episodeName = episodeName;
         this.episodeNumber = episodeNumber;
@@ -93,10 +87,6 @@ public class Episodes {
 
     public int getShowId() {
         return showId;
-    }
-
-    public int getSeasonId() {
-        return seasonId;
     }
 
     public int getEpisodeId() {
@@ -145,10 +135,6 @@ public class Episodes {
 
     public void setShowId(int showId) {
         this.showId = showId;
-    }
-
-    public void setSeasonId(int seasonId) {
-        this.seasonId = seasonId;
     }
 
     public void setEpisodeId(int episodeId) {

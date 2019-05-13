@@ -3,4 +3,8 @@
     <string name="my_shows_title">My Shows</string>
     <string name="discover_title">Discover</string>
     <string name="stats_title">Stats</string>
+    <string name="button">Button</string>
+    <string name="discover_tab_text">Discover Tab</string>
+    <string name="myshows_text">MyShows</string>
+    <string name="stats_text">Stats</string>
 </resources>

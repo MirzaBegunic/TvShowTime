@@ -22,6 +22,11 @@ public interface ShowsDao {
     void update(Shows shows);
 
     @Query("SELECT * FROM shows_table")
-    List<Shows> getAllShows();
+    LiveData<List<Shows>> getAllShows();
 
+    @Query("SELECT * FROM shows_table WHERE showId = :Id")
+    LiveData<Shows> getShowById(int Id);
+
+    @Query("SELECT * FROM shows_table WHERE showId = :Id")
+    Shows getShowById2(int Id);
 }
