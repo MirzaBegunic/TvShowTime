@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         tvViewModel = ViewModelProviders.of(this).get(TvViewModel.class);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationListner);
-
+        bottomNavigationView.setSelectedItemId(R.id.discover);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationListner = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,selectedTab).commit();
 
-        return true;
+            return true;
         }
     };
 

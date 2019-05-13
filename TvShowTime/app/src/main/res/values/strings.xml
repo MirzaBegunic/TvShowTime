@@ -7,4 +7,9 @@
     <string name="discover_tab_text">Discover Tab</string>
     <string name="myshows_text">MyShows</string>
     <string name="stats_text">Stats</string>
+    <string name="shows_image_description">Shows Image</string>
+    <string name="show_name_textview">Show Name</string>
+    <string name="seasons_number_textView">Seasons 0</string>
+    <string name="status_textView">status</string>
+    <string name="runtime_textView">00</string>
 </resources>
