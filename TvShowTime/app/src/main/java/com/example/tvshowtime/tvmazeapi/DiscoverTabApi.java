@@ -1,0 +1,9 @@
+package com.example.tvshowtime.tvmazeapi;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
+public interface DiscoverTabApi {
+    @GET("updates/shows")
+    Call<String> getUpdatesJson();
+}

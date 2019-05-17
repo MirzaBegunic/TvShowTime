@@ -2,10 +2,8 @@ package com.example.tvshowtime.repository;
 
 import android.app.Application;
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.tvshowtime.database.Cast;
 import com.example.tvshowtime.database.CastDao;
 import com.example.tvshowtime.database.Episodes;
@@ -17,45 +15,70 @@ import com.example.tvshowtime.database.ShowDao;
 import com.example.tvshowtime.database.Shows;
 import com.example.tvshowtime.database.ShowsDao;
 import com.example.tvshowtime.database.TvShowsDatabase;
+import com.example.tvshowtime.tvmazeapi.DiscoverTabApi;
 import com.example.tvshowtime.tvmazeapi.ShowJson;
 import com.example.tvshowtime.tvmazeapi.TvMazeApi;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class TvShowRepository {
-    private MutableLiveData<List<ShowJson>> search;
-    private MutableLiveData<List<Shows>> listOfShows;
+    private static final String TAG = TvShowRepository.class.getSimpleName();
     private ShowDao showDao;
     private ShowsDao showsDao;
     private SeasonsDao seasonsDao;
     private EpisodesDao episodesDao;
     private CastDao castDao;
     private TvMazeApi tvMazeApi;
+    private DiscoverTabApi discoverTabApi;
+    private MutableLiveData<List<ShowJson>> search;
+    private MutableLiveData<List<Show>> showsForDiscoverTab;
     private Retrofit retrofit;
+    private Retrofit retrofit2;
     AppExecutors appExecutorsInstance;
 
     public TvShowRepository(Application application){
+
         TvShowsDatabase tvShowsDatabase= TvShowsDatabase.getInstance(application);
         showsDao = tvShowsDatabase.showsDao();
         showDao = tvShowsDatabase.showDao();
         seasonsDao = tvShowsDatabase.seasonsDao();
         episodesDao = tvShowsDatabase.episodesDao();
         castDao = tvShowsDatabase.castDao();
+
+        appExecutorsInstance =  AppExecutors.getInstance();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.tvmaze.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         tvMazeApi = retrofit.create(TvMazeApi.class);
-        appExecutorsInstance =  AppExecutors.getInstance();
-    }
 
+        retrofit2 = new Retrofit.Builder()
+                .baseUrl("http://api.tvmaze.com")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        discoverTabApi = retrofit2.create(DiscoverTabApi.class);
+
+    }
+    /**Search series by word*/
     public void searchSeries(String query){
         Call<List<ShowJson>> call = tvMazeApi.getSearchedListShow(query);
         if(search==null){
@@ -76,11 +99,11 @@ public class TvShowRepository {
             }
         });
     }
-
+    /**Get searched series by word*/
     public LiveData<List<ShowJson>> getSearchSeries(){
         return search;
     }
-
+    /**Insert Series in db by Id */
     public void insertSeriesInDatabase(final int showId ){
         appExecutorsInstance.diskAndNetworkExecutor().execute(new Runnable() {
             @Override
@@ -140,4 +163,73 @@ public class TvShowRepository {
                 }
         });
     }
+    /**Called when app is first time launched, to download list of latest shows */
+    public void setDiscoverTabShows(){
+        if(showsForDiscoverTab==null){
+            showsForDiscoverTab = new MutableLiveData<>();
+        }
+        appExecutorsInstance.diskAndNetworkExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                SortedMap<Long, Integer> mapOfShows = new TreeMap<>();
+                Future<SortedMap<Long,Integer>> future = appExecutorsInstance.networkExecutor().submit(new Callable<SortedMap<Long,Integer>>() {
+                    @Override
+                    public SortedMap<Long,Integer> call() throws Exception {
+                        SortedMap<Long, Integer> sortedMap = new TreeMap<>(Collections.<Long>reverseOrder());
+                        try{
+                            Call<String> call = discoverTabApi.getUpdatesJson();
+                            Response<String> response = call.execute();
+                            String jsonStringResponse = response.body();
+                            Type mapType = new TypeToken<Map<Integer, Long>>(){}.getType();
+                            Gson gson = new Gson();
+                            Map<Integer, Long > updatesMap = gson.fromJson(jsonStringResponse,mapType);
+                            for (Map.Entry<Integer,Long> entry: updatesMap.entrySet()) {
+                                sortedMap.put(entry.getValue(),entry.getKey());
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        return sortedMap;
+                    }
+                });
+                try {
+                    mapOfShows = future.get();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                List<Show> listForLiveData = new ArrayList<>();
+                int i = 0;
+                for(SortedMap.Entry<Long, Integer> entry: mapOfShows.entrySet()) {
+                    if (i > 50) {
+                        break;
+                    } else {
+                        ++i;
+                        final Integer id = entry.getValue();
+                        Future<Show> showFuture = appExecutorsInstance.diskExecutor().submit(new Callable<Show>() {
+                            @Override
+                            public Show call() throws Exception {
+                                Call<Show> call = tvMazeApi.getShowById(id);
+                                Response<Show> response = call.execute();
+                                Show show = response.body();
+                                return show;
+                            }
+                        });
+                        try {
+                            listForLiveData.add(showFuture.get());
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    showsForDiscoverTab.postValue(listForLiveData);
+                }
+            }
+        });
+    }
+    /**Called to get LiveData to fragment*/
+    public LiveData<List<Show>> getDiscoverData(){
+        return showsForDiscoverTab;
+    }
+
 }

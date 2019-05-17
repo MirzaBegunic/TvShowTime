@@ -10,7 +10,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +30,7 @@ import com.example.tvshowtime.tvmazeapi.TvMazeApi;
 import com.example.tvshowtime.viewmodel.TvViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -37,18 +42,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TvViewModel tvViewModel; //ViewModel instance used to manipulate data
-    BottomNavigationView bottomNavigationView;
+    public static final String TAG = "MainActivity";
+    public static TvViewModel tvViewModel;
+    private BottomNavigationView bottomNavigationView;
+    public static SharedPreferences preferences;
+    public static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvViewModel = ViewModelProviders.of(this).get(TvViewModel.class);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationListner);
         bottomNavigationView.setSelectedItemId(R.id.discover);
+        preferences = getApplicationContext().getSharedPreferences("MyPreferences",MODE_PRIVATE);
+        editor = preferences.edit();
+        tvViewModel = ViewModelProviders.of(this).get(TvViewModel.class);
+        tvViewModel.setDiscoverShowTabs();
+        Log.d(TAG, "onCreate: Finished");
     }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationListner = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -73,5 +86,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
 }

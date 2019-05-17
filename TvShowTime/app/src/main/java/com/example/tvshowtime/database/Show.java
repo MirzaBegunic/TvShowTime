@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
@@ -74,6 +75,7 @@ public class Show {
     @Embedded
     @SerializedName("_links")
     private Links links;
+
 
 
 
