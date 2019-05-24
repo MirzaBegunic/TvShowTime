@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -60,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Finished");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_search_bar,menu);
+        return true;
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationListner = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -84,4 +91,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void actionSearch(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+        startActivity(intent,null);
+    }
 }
