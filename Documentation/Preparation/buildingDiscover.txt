@@ -1,0 +1,2 @@
+Napraviti layout za svaki elemnt unutar recycler viewa.
+Napraviti adapter za recycler view.

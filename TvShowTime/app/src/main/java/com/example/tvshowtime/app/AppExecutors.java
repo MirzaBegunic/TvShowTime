@@ -1,6 +1,5 @@
-package com.example.tvshowtime.repository;
+package com.example.tvshowtime.app;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

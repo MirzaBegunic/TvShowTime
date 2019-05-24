@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
@@ -75,6 +76,11 @@ public class Show {
     @SerializedName("_links")
     private Links links;
 
+    @Ignore
+    @SerializedName("network")
+    private Network network;
+
+
 
 
     public Show(int showId, String showName, String url, String[] genres, String status, int runTime, String premiered, Rating rating, ImageLinks imageUrl, String description, Links links) {
@@ -90,6 +96,21 @@ public class Show {
         this.description = description;
         this.links = links;
     }
+    public Show(int showId, String showName, String url, String[] genres, String status, int runTime, String premiered, Rating rating, ImageLinks imageUrl, String description, Links links, Network network) {
+        this.showId = showId;
+        this.showName = showName;
+        this.url = url;
+        this.genres = genres;
+        this.status = status;
+        this.runTime = runTime;
+        this.premiered = premiered;
+        this.rating = rating;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.links = links;
+        this.network = network;
+    }
+
 
     public int getShowId() {
         return showId;
@@ -135,6 +156,8 @@ public class Show {
         return links;
     }
 
+    public Network getNetwork(){ return network; }
+
     public void setShowId(int showId) {
         this.showId = showId;
     }
@@ -178,4 +201,6 @@ public class Show {
     public void setLinks(Links links) {
         this.links = links;
     }
+
+    public void setNetwork (Network network) { this.network = network; }
 }

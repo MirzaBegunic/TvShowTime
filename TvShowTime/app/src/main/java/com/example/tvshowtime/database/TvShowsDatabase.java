@@ -12,13 +12,9 @@ public abstract class TvShowsDatabase extends RoomDatabase {
     private static TvShowsDatabase instance;
 
     public abstract ShowsDao showsDao();
-
     public abstract ShowDao showDao();
-
     public abstract SeasonsDao seasonsDao();
-
     public abstract EpisodesDao episodesDao();
-
     public abstract CastDao castDao();
 
 

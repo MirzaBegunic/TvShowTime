@@ -10,7 +10,7 @@ import androidx.room.Index;
 import com.google.gson.annotations.SerializedName;
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = Episodes.tab_EpisodesTableName, indices = {@Index(value = {Episodes.col_SeasonNumber},unique = false)},primaryKeys = {Episodes.col_ShowId, Episodes.col_EpisodeId}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.col_ShowId,Seasons.col_SeasonNumber}, childColumns = {Episodes.col_ShowId, Episodes.col_SeasonNumber}, onDelete = CASCADE))
+@Entity(tableName = Episodes.tab_EpisodesTableName, indices = {@Index(value = {"showId","seasonNumber"},unique = false)},primaryKeys = {Episodes.col_ShowId, Episodes.col_EpisodeId}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.col_ShowId,Seasons.col_SeasonNumber}, childColumns = {Episodes.col_ShowId, Episodes.col_SeasonNumber}, onDelete = CASCADE))
 public class Episodes {
 
     public static final String tab_EpisodesTableName = "episodes_table";
