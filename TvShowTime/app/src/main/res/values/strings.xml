@@ -12,4 +12,25 @@
     <string name="seasons_number_textView">Seasons 0</string>
     <string name="status_textView">status</string>
     <string name="runtime_textView">00</string>
+    <string name="collapsing_toolbar">Collapsing Toolbar</string>
+    <string name="todo">TODO</string>
+    <string name="name_of_the_show">Name Of The Show</string>
+    <string name="cast_show_tab">Cast</string>
+    <string name="episodes_show_tab">Episodes</string>
+    <string name="info_show_tab">Info</string>
+    <string name="rating_description">Rating</string>
+    <string name="genre_text_view">Genre</string>
+    <string name="status_desc">Status</string>
+    <string name="runtime_desc">Runtime</string>
+    <string name="network_description">Network</string>
+    <string name="premiered_text">Premiered:</string>
+    <string name="genresTitle">Genres:</string>
+    <string name="loading">Loading..</string>
+    <string name="_0_0">0.0</string>
+    <string name="season_0">Season ND</string>
+    <string name="episode_0">Episode ND</string>
+    <string name="details_episode_description">Episode Name Not Found :/</string>
+    <string name="real_name">Real Name</string>
+    <string name="role_name">Role Name</string>
+    <string name="as">as</string>
 </resources>

@@ -7,4 +7,9 @@
     <color name="colorMyPrimary">#00bcd4</color>
     <color name="colorMyPrimaryDark">#008ba3</color>
     <color name="colorMyAccent">#ffeb3b</color>
+
+    <color name="colorMediumTransparent">#80000000</color>
+    <color name="white">#fff5f5f5</color>
+    <color name="colorBackgroundOfList">#80bebebe</color>
+
 </resources>

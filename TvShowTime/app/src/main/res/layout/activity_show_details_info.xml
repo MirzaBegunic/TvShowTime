@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorMyPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genresTextView" />
+
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/info_component_background"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/_0_0"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/networkTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ratingTextViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/rating_description"
+            app:layout_constraintEnd_toEndOf="@+id/ratingTextView"
+            app:layout_constraintStart_toStartOf="@+id/ratingTextView"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTextView" />
+
+        <TextView
+            android:id="@+id/networkTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/info_component_background"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/network_description"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingTextView"
+            app:layout_constraintEnd_toStartOf="@+id/statusText"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ratingTextView"
+            app:layout_constraintTop_toTopOf="@+id/ratingTextView" />
+
+        <TextView
+            android:id="@+id/networkText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text="@string/loading"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/networkTextView"
+            app:layout_constraintStart_toStartOf="@+id/networkTextView"
+            app:layout_constraintTop_toBottomOf="@+id/networkTextView" />
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/info_component_background"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/status_desc"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/networkTextView"
+            app:layout_constraintEnd_toStartOf="@+id/runtime"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/networkTextView"
+            app:layout_constraintTop_toTopOf="@+id/networkTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/loading"
+            app:layout_constraintEnd_toEndOf="@+id/statusText"
+            app:layout_constraintStart_toStartOf="@+id/statusText"
+            app:layout_constraintTop_toBottomOf="@+id/statusText" />
+
+        <TextView
+            android:id="@+id/runtime"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/info_component_background"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/loading"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/statusText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/statusText"
+            app:layout_constraintTop_toTopOf="@+id/statusText" />
+
+        <TextView
+            android:id="@+id/runtimedesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/runtime_desc"
+            app:layout_constraintEnd_toEndOf="@+id/runtime"
+            app:layout_constraintStart_toStartOf="@+id/runtime"
+            app:layout_constraintTop_toBottomOf="@+id/runtime" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorMyPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTextViewDescription" />
+
+        <TextView
+            android:id="@+id/genresTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/genresTitle"
+            android:textColor="@color/colorMyPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/genresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/loading"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/genresTitle"
+            app:layout_constraintStart_toEndOf="@+id/genresTitle"
+            app:layout_constraintTop_toTopOf="@+id/genresTitle" />
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,6 +1,7 @@
-package com.example.tvshowtime.fragments;
+package com.example.tvshowtime.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tvshowtime.R;
+import com.example.tvshowtime.activities.ShowDetails;
 import com.example.tvshowtime.database.Show;
 import java.util.List;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapter.DiscoverViewHolder> {
 
     private static final String TAG = "DiscoverViewAdapter";
+    public static final String INTENT_EXTRA = "intentExtra";
     private LayoutInflater mInflater;
     private List<Show> showList;
 
@@ -29,7 +34,7 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
     @NonNull
     @Override
     public DiscoverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mView = mInflater.inflate(R.layout.show_view_layout,parent,false);
+        View mView = mInflater.inflate(R.layout.activity_main_discover_tab_show_view_layout,parent,false);
         return new DiscoverViewHolder(mView, this);
     }
 
@@ -37,11 +42,14 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
     public void onBindViewHolder(@NonNull DiscoverViewHolder holder, int position) {
         Log.d(TAG, "onBind");
         Show show = showList.get(position);
-        if(show.getShowName()!=null && show.getStatus()!=null && show.getImageUrl()!=null){
+        if(show.getShowName()!=null && show.getStatus()!=null){
             holder.showNameTextView.setText(show.getShowName());
             holder.statusTextView.setText(show.getStatus());
             holder.runtimeTextView.setText(show.getRunTime() + "min");
-            Glide.with(holder.itemView).load(show.getImageUrl().getUrlLarge()).into(holder.showImageImageView);
+            if(show.getImageUrl()==null || show.getImageUrl().getUrlLarge() == null)
+                Glide.with(holder.itemView).load(R.drawable.error).into(holder.showImageImageView);
+            else
+                Glide.with(holder.itemView).load(show.getImageUrl().getUrlLarge()).into(holder.showImageImageView);
             //TODO: Add onClick listener to button
         }
     }
@@ -57,7 +65,7 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
         Log.d(TAG, "setNewData: set");
     }
 
-    public static class DiscoverViewHolder extends RecyclerView.ViewHolder {
+    public class DiscoverViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public final TextView showNameTextView;
         public final TextView statusTextView;
@@ -76,6 +84,16 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
             runtimeTextView = itemView.findViewById(R.id.runtimeTextView);
             this.itemView = itemView;
             this.adapter = adapter;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getLayoutPosition();
+            Show show = showList.get(position);
+            Intent intent = new Intent(v.getContext(), ShowDetails.class);
+            intent.putExtra(INTENT_EXTRA,show.getShowId());
+            startActivity(v.getContext(),intent,null);
         }
     }
 }

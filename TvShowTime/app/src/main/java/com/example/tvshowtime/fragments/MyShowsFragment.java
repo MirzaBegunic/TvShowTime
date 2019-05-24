@@ -15,6 +15,6 @@ public class MyShowsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.myshows_tab,container,false);
+        return inflater.inflate(R.layout.activity_main_myshows_tab,container,false);
     }
 }

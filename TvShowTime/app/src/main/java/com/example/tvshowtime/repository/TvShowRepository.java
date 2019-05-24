@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.tvshowtime.app.AppExecutors;
 import com.example.tvshowtime.database.Cast;
 import com.example.tvshowtime.database.CastDao;
 import com.example.tvshowtime.database.Episodes;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -48,11 +51,16 @@ public class TvShowRepository {
     private CastDao castDao;
     private TvMazeApi tvMazeApi;
     private DiscoverTabApi discoverTabApi;
-    private MutableLiveData<List<ShowJson>> search;
-    private MutableLiveData<List<Show>> showsForDiscoverTab;
     private Retrofit retrofit;
     private Retrofit retrofit2;
-    AppExecutors appExecutorsInstance;
+    private AppExecutors appExecutorsInstance;
+    private MutableLiveData<List<ShowJson>> search;
+    private MutableLiveData<List<Show>> showsForDiscoverTab;
+    private MutableLiveData<Show> showInfoLiveData;
+    private MutableLiveData<HashMap<String, List<Episodes>>> showSeasonsAndEpisodesMap;
+    private MutableLiveData<List<String>> headersShowSeasonsAndEpisodesMap;
+    private MutableLiveData<List<Cast>> showCast;
+
 
     public TvShowRepository(Application application){
 
@@ -63,7 +71,7 @@ public class TvShowRepository {
         episodesDao = tvShowsDatabase.episodesDao();
         castDao = tvShowsDatabase.castDao();
 
-        appExecutorsInstance =  AppExecutors.getInstance();
+        appExecutorsInstance = AppExecutors.getInstance();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.tvmaze.com")
@@ -228,8 +236,114 @@ public class TvShowRepository {
         });
     }
     /**Called to get LiveData to fragment*/
-    public LiveData<List<Show>> getDiscoverData(){
-        return showsForDiscoverTab;
+    public LiveData<List<Show>> getDiscoverData(){ return showsForDiscoverTab; }
+
+    public void fetchShowInfoById(int showId){
+        if(showInfoLiveData==null){
+            showInfoLiveData = new MutableLiveData<>();
+        }
+        Call<Show> call = tvMazeApi.getShowById(showId);
+        call.enqueue(new Callback<Show>() {
+            @Override
+            public void onResponse(Call<Show> call, Response<Show> response) {
+                Show show = response.body();
+                showInfoLiveData.postValue(show);
+            }
+
+            @Override
+            public void onFailure(Call<Show> call, Throwable t) {
+
+            }
+        });
     }
 
+    public LiveData<Show> getShowInfoLiveData(){
+        if(showInfoLiveData==null){
+            showInfoLiveData = new MutableLiveData<>();
+        }
+        return showInfoLiveData;
+    }
+
+    public void fetchShowSeasonsAndEpisodesMap(final int showId){
+        if(showSeasonsAndEpisodesMap==null)
+            showSeasonsAndEpisodesMap = new MutableLiveData<>();
+        if(headersShowSeasonsAndEpisodesMap==null)
+            headersShowSeasonsAndEpisodesMap = new MutableLiveData<>();
+        appExecutorsInstance.diskAndNetworkExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                HashMap<String,List<Episodes>> map = new HashMap<>();
+                List<String> namesList = new ArrayList<>();
+                Call<List<Seasons>> call = tvMazeApi.getShowSeasons(showId);
+                Response<List<Seasons>> response;
+                try {
+                    response= call.execute();
+                } catch (IOException e) {
+                    response = null;
+                }
+                if(response!=null){
+                    List<Seasons> seasonsList = response.body();
+                    for (Seasons season: seasonsList) {
+                        String name = new String("Season " + season.getSeasonNumber());
+                        namesList.add(name);
+                        Call<List<Episodes>> call2 = tvMazeApi.getSeasonEpisodes(season.getSeasonId());
+                        Response<List<Episodes>> response2;
+                        try {
+                            response2 = call2.execute();
+                        } catch (IOException e) {
+                            response2 = null;
+                        }
+                        if(response2!=null){
+                            List<Episodes> episodesList = response2.body();
+                            map.put(name,episodesList);
+                        }
+                    }
+                }
+                headersShowSeasonsAndEpisodesMap.postValue(namesList);
+                showSeasonsAndEpisodesMap.postValue(map);
+            }
+        });
+    }
+
+    public LiveData<HashMap<String,List<Episodes>>> getShowSeasonsAndEpisodes(){
+        if(showSeasonsAndEpisodesMap==null){
+            showSeasonsAndEpisodesMap = new MutableLiveData<>();
+        }
+        return showSeasonsAndEpisodesMap;
+    }
+
+    public LiveData<List<String>> getHeaders(){
+        if(headersShowSeasonsAndEpisodesMap==null){
+            headersShowSeasonsAndEpisodesMap = new MutableLiveData<>();
+        }
+        return headersShowSeasonsAndEpisodesMap;
+    }
+
+    public void fetchShowCast(final int showId){
+        if(showCast == null){
+            showCast = new MutableLiveData<>();
+        }
+        appExecutorsInstance.networkExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                {
+                    try {
+                        Call<List<Cast>> call = tvMazeApi.getShowCast(showId);
+                        Response<List<Cast>> response = call.execute();
+                        List<Cast> cast = response.body();
+                        showCast.postValue(cast);
+                    }catch (Exception e){
+
+                    }
+                }
+            }
+        });
+    }
+
+    public LiveData<List<Cast>> getShowCast(){
+        if (showCast == null){
+            showCast = new MutableLiveData<>();
+        }
+        return showCast;
+    }
 }

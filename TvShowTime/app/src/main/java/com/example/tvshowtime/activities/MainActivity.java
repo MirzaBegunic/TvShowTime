@@ -1,4 +1,4 @@
-package com.example.tvshowtime;
+package com.example.tvshowtime.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.tvshowtime.R;
 import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.fragments.DiscoverFragment;
 import com.example.tvshowtime.fragments.MyShowsFragment;
@@ -43,7 +44,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-    public static TvViewModel tvViewModel;
     private BottomNavigationView bottomNavigationView;
     public static SharedPreferences preferences;
     public static SharedPreferences.Editor editor;
@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.discover);
         preferences = getApplicationContext().getSharedPreferences("MyPreferences",MODE_PRIVATE);
         editor = preferences.edit();
-        tvViewModel = ViewModelProviders.of(this).get(TvViewModel.class);
-        tvViewModel.setDiscoverShowTabs();
         Log.d(TAG, "onCreate: Finished");
     }
 

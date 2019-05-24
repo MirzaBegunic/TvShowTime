@@ -34,12 +34,5 @@ public class TvViewModel extends AndroidViewModel {
     public void insertShow(int id){
         repository.insertSeriesInDatabase(id);
     }
-    public void setDiscoverShowTabs(){
-        repository.setDiscoverTabShows();
-    }
-    /**Called to get shows for discover tab first time the fragment is created*/
-    public LiveData<List<Show>> getDiscoverShow(){
-        discoverShow = repository.getDiscoverData();
-        return discoverShow;
-    }
+
 }
