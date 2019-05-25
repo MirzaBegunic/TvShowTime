@@ -1,6 +1,7 @@
 package com.example.tvshowtime.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class DiscoverFragment extends Fragment {
         discoverTabViewModel.getDiscoverShow().observe(getViewLifecycleOwner(), new Observer<List<Show>>() {
             @Override
             public void onChanged(List<Show> showList) {
+                Log.d("logovi", "onChanged:  " + showList.size());
                 adapter.setNewData(showList);
             }
         });

@@ -30,7 +30,7 @@ public class ShowDetailsViewModel extends AndroidViewModel {
     }
 
     public void fetchShowEpisodes(int showId){
-        repository.fetchShowSeasonsAndEpisodesMap(showId);
+        repository.fetchShowSeasonsAndEpisodesList(showId);
     }
 
     public void fetchCast(int showId) {repository.fetchShowCast(showId);}

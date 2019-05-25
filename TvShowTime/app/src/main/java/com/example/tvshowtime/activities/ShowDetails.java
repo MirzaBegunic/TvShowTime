@@ -1,6 +1,8 @@
 package com.example.tvshowtime.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.tvshowtime.R;
 import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.fragments.ShowDetailsCastFragment;
-import com.example.tvshowtime.fragments.ShowDetailsEpiosodesFragment;
+import com.example.tvshowtime.fragments.ShowDetailsEpisodesFragment;
 import com.example.tvshowtime.fragments.ShowDetailsInfoFragment;
 import com.example.tvshowtime.adapters.DiscoverViewAdapter;
 import com.example.tvshowtime.viewmodel.ShowDetailsViewModel;
@@ -23,10 +25,12 @@ import com.google.android.material.tabs.TabLayout;
 public class ShowDetails extends AppCompatActivity {
 
     private Integer showId;
-    ImageView imageView;
-    TabLayout tabLayout;
-    TextView showName;
+    private ImageView imageView;
+    private TabLayout tabLayout;
+    private TextView showName;
     private ShowDetailsViewModel vievModel;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,7 @@ public class ShowDetails extends AppCompatActivity {
                     selectedTab = new ShowDetailsInfoFragment();
                     break;
                 case 1:
-                    selectedTab = new ShowDetailsEpiosodesFragment();
+                    selectedTab = new ShowDetailsEpisodesFragment();
                     break;
                 case 2:
                     selectedTab = new ShowDetailsCastFragment();

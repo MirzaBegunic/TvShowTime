@@ -10,6 +10,7 @@ import com.example.tvshowtime.database.Cast;
 import com.example.tvshowtime.database.CastDao;
 import com.example.tvshowtime.database.Episodes;
 import com.example.tvshowtime.database.EpisodesDao;
+import com.example.tvshowtime.database.SeasonAndEpisodes;
 import com.example.tvshowtime.database.Seasons;
 import com.example.tvshowtime.database.SeasonsDao;
 import com.example.tvshowtime.database.Show;
@@ -57,8 +58,7 @@ public class TvShowRepository {
     private MutableLiveData<List<ShowJson>> search;
     private MutableLiveData<List<Show>> showsForDiscoverTab;
     private MutableLiveData<Show> showInfoLiveData;
-    private MutableLiveData<HashMap<String, List<Episodes>>> showSeasonsAndEpisodesMap;
-    private MutableLiveData<List<String>> headersShowSeasonsAndEpisodesMap;
+    private MutableLiveData<List<SeasonAndEpisodes>> showSeasonsAndEpisodesList;
     private MutableLiveData<List<Cast>> showCast;
 
 
@@ -264,16 +264,13 @@ public class TvShowRepository {
         return showInfoLiveData;
     }
 
-    public void fetchShowSeasonsAndEpisodesMap(final int showId){
-        if(showSeasonsAndEpisodesMap==null)
-            showSeasonsAndEpisodesMap = new MutableLiveData<>();
-        if(headersShowSeasonsAndEpisodesMap==null)
-            headersShowSeasonsAndEpisodesMap = new MutableLiveData<>();
+    public void fetchShowSeasonsAndEpisodesList(final int showId){
+        if(showSeasonsAndEpisodesList==null)
+            showSeasonsAndEpisodesList = new MutableLiveData<>();
         appExecutorsInstance.diskAndNetworkExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                HashMap<String,List<Episodes>> map = new HashMap<>();
-                List<String> namesList = new ArrayList<>();
+                List<SeasonAndEpisodes> list = new ArrayList<>();
                 Call<List<Seasons>> call = tvMazeApi.getShowSeasons(showId);
                 Response<List<Seasons>> response;
                 try {
@@ -284,8 +281,7 @@ public class TvShowRepository {
                 if(response!=null){
                     List<Seasons> seasonsList = response.body();
                     for (Seasons season: seasonsList) {
-                        String name = new String("Season " + season.getSeasonNumber());
-                        namesList.add(name);
+                        String name = "Season " + season.getSeasonNumber();
                         Call<List<Episodes>> call2 = tvMazeApi.getSeasonEpisodes(season.getSeasonId());
                         Response<List<Episodes>> response2;
                         try {
@@ -295,28 +291,20 @@ public class TvShowRepository {
                         }
                         if(response2!=null){
                             List<Episodes> episodesList = response2.body();
-                            map.put(name,episodesList);
+                            list.add(new SeasonAndEpisodes(name,episodesList));
                         }
                     }
                 }
-                headersShowSeasonsAndEpisodesMap.postValue(namesList);
-                showSeasonsAndEpisodesMap.postValue(map);
+                showSeasonsAndEpisodesList.postValue(list);
             }
         });
     }
 
-    public LiveData<HashMap<String,List<Episodes>>> getShowSeasonsAndEpisodes(){
-        if(showSeasonsAndEpisodesMap==null){
-            showSeasonsAndEpisodesMap = new MutableLiveData<>();
+    public LiveData<List<SeasonAndEpisodes>> getShowSeasonsAndEpisodes(){
+        if(showSeasonsAndEpisodesList==null){
+            showSeasonsAndEpisodesList = new MutableLiveData<>();
         }
-        return showSeasonsAndEpisodesMap;
-    }
-
-    public LiveData<List<String>> getHeaders(){
-        if(headersShowSeasonsAndEpisodesMap==null){
-            headersShowSeasonsAndEpisodesMap = new MutableLiveData<>();
-        }
-        return headersShowSeasonsAndEpisodesMap;
+        return showSeasonsAndEpisodesList;
     }
 
     public void fetchShowCast(final int showId){

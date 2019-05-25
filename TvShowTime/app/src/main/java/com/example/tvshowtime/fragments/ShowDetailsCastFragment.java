@@ -43,12 +43,11 @@ public class ShowDetailsCastFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(ShowDetailsCastFragmentViewModel.class);
         final List<Cast> cast = new ArrayList<>();
-        adapter = new ShowDetailsCastViewAdapter(getContext(),cast);
-        recyclerView.setAdapter(adapter);
+
         viewModel.getShowCast().observe(getViewLifecycleOwner(), new Observer<List<Cast>>() {
             @Override
             public void onChanged(List<Cast> casts) {
-                adapter.setShowCast(casts);
+                recyclerView.setAdapter(new ShowDetailsCastViewAdapter(getContext(),casts));
             }
         });
     }

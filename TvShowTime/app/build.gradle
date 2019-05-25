@@ -50,4 +50,7 @@ dependencies {
     //JSoup
     implementation 'org.jsoup:jsoup:1.11.1'
 
+    //Expandable recycler view
+    implementation 'com.thoughtbot:expandablerecyclerview:1.3'
+
 }

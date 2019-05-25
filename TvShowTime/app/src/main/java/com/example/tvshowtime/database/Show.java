@@ -1,5 +1,8 @@
 package com.example.tvshowtime.database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -203,4 +206,5 @@ public class Show {
     }
 
     public void setNetwork (Network network) { this.network = network; }
+
 }

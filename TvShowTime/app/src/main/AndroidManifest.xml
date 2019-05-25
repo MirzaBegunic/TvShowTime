@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".activities.SearchActivity"></activity>
+        <activity
+            android:name=".activities.SearchActivity"
+            android:launchMode="singleInstance"></activity>
         <activity
             android:name=".activities.ShowDetails"
             android:launchMode="singleInstance"
