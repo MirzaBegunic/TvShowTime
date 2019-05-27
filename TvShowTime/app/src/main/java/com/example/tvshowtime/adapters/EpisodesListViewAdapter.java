@@ -1,13 +1,13 @@
 package com.example.tvshowtime.adapters;
 
 import android.content.Context;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.tvshowtime.R;
 import com.example.tvshowtime.database.Episodes;
@@ -16,15 +16,18 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<EpisodesListViewAdapter.SeasonViewHolder,EpisodesListViewAdapter.EpisodeViewHolder> {
 
     private LayoutInflater inflater;
+    private HashMap<String,Boolean> stateMap;
 
-    public EpisodesListViewAdapter(Context context,List<? extends ExpandableGroup> groups) {
+    public EpisodesListViewAdapter(Context context,List<? extends ExpandableGroup> groups,HashMap<String,Boolean> stateMap) {
         super(groups);
         inflater = LayoutInflater.from(context);
+        this.stateMap = stateMap;
     }
 
     @Override
@@ -47,38 +50,56 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
 
     @Override
     public void onBindGroupViewHolder(SeasonViewHolder holder, int flatPosition, ExpandableGroup group) {
+        Log.d("bindanje", "onBindGroupViewHolder: "+ group.getTitle());
         holder.setContent(group);
+        Boolean state = stateMap.get(group.getTitle());
+        if(state)
+            holder.animateExpand();
+        else
+            holder.animateCollapse();
     }
 
     public class SeasonViewHolder extends GroupViewHolder {
 
         private TextView seasonTitle;
-        private Button button;
-        private Boolean bool;
+        private ImageView arrow;
+        private View view;
+        private String title;
 
         public SeasonViewHolder(View itemView) {
             super(itemView);
             seasonTitle = itemView.findViewById(R.id.detailsEpisodeHeaderText);
-            button = itemView.findViewById(R.id.expandedButton);
-            bool = false;
+            arrow = itemView.findViewById(R.id.expandedButton);
+            view = itemView;
         }
 
         public void setContent(ExpandableGroup group){
             seasonTitle.setText(group.getTitle());
+            this.title = group.getTitle();
         }
 
         @Override
-        public void onClick(View v) {
-            super.onClick(v);
-            if(!bool){
-                button.setBackgroundResource(R.drawable.arrow_expaned);
-                bool = true;
-            }else{
-                button.setBackgroundResource(R.drawable.arrow_collapsed);
-                bool = false;
-            }
-
+        public void expand() {
+            stateMap.put(title,true);
+            animateExpand();
         }
+
+        @Override
+        public void collapse() {
+            stateMap.put(title,false);
+            animateCollapse();
+        }
+
+        private void animateExpand() {
+            Log.d("animation", "animateExpand: ");
+            arrow.setImageDrawable(view.getResources().getDrawable(R.drawable.arrowup));
+        }
+
+        private void animateCollapse() {
+            Log.d("animation", "animateCollapse: ");
+            arrow.setImageDrawable(view.getResources().getDrawable(R.drawable.arrow));
+        }
+
     }
 
     public class EpisodeViewHolder extends ChildViewHolder {

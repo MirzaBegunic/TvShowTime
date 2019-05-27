@@ -2,10 +2,13 @@ package com.example.tvshowtime.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,17 +20,20 @@ import com.example.tvshowtime.activities.ShowDetails;
 import com.example.tvshowtime.database.Show;
 import java.util.List;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static androidx.core.content.ContextCompat.startActivity;
 
-public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapter.DiscoverViewHolder> {
+public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapter.DiscoverViewHolder>{
 
     private static final String TAG = "DiscoverViewAdapter";
     public static final String INTENT_EXTRA = "intentExtra";
     private LayoutInflater mInflater;
     private List<Show> showList;
+    private Context context;
 
     public DiscoverViewAdapter(Context context, List<Show> showList){
         mInflater = LayoutInflater.from(context);
+        this.context = context;
         this.showList = showList;
     }
 
@@ -50,7 +56,6 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
                 Glide.with(holder.itemView).load(R.drawable.error).into(holder.showImageImageView);
             else
                 Glide.with(holder.itemView).load(show.getImageUrl().getUrlLarge()).into(holder.showImageImageView);
-            //TODO: Add onClick listener to button
         }
     }
 
@@ -65,13 +70,13 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
         Log.d(TAG, "setNewData: set");
     }
 
+
     public class DiscoverViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public final TextView showNameTextView;
         public final TextView statusTextView;
         public final TextView runtimeTextView;
         public final ImageView showImageImageView;
-        public final Button showAddButton;
         public final View itemView;
         final DiscoverViewAdapter adapter;
 
@@ -80,7 +85,6 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
             showNameTextView = itemView.findViewById(R.id.showName);
             statusTextView = itemView.findViewById(R.id.statusTextView);
             showImageImageView = itemView.findViewById(R.id.showImage);
-            showAddButton = itemView.findViewById(R.id.addShowButton);
             runtimeTextView = itemView.findViewById(R.id.runtimeTextView);
             this.itemView = itemView;
             this.adapter = adapter;

@@ -41,7 +41,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/showImage"
-            app:layout_constraintEnd_toStartOf="@+id/addShowButton"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -57,18 +57,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/showImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showName" />
-
-        <Button
-            android:id="@+id/addShowButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/add_show_circle"
-            app:layout_constraintBottom_toBottomOf="@+id/showImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/showName" />
 
         <TextView
             android:id="@+id/runtimeTextView"

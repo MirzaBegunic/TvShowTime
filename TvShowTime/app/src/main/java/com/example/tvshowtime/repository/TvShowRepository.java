@@ -60,6 +60,7 @@ public class TvShowRepository {
     private MutableLiveData<Show> showInfoLiveData;
     private MutableLiveData<List<SeasonAndEpisodes>> showSeasonsAndEpisodesList;
     private MutableLiveData<List<Cast>> showCast;
+    private MutableLiveData<List<ShowJson>> searchShows;
 
 
     public TvShowRepository(Application application){
@@ -333,5 +334,27 @@ public class TvShowRepository {
             showCast = new MutableLiveData<>();
         }
         return showCast;
+    }
+
+    public void searchShows(String query){
+        if(searchShows==null)
+            searchShows = new MutableLiveData<>();
+        Call<List<ShowJson>> call = tvMazeApi.getSearchedListShow(query);
+        call.enqueue(new Callback<List<ShowJson>>() {
+            @Override
+            public void onResponse(Call<List<ShowJson>> call, Response<List<ShowJson>> response) {
+                searchShows.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<ShowJson>> call, Throwable t) {
+            }
+        });
+    }
+
+    public LiveData<List<ShowJson>> getSearchedShows(){
+        if(searchShows == null)
+            searchShows = new MutableLiveData<>();
+        return searchShows;
     }
 }

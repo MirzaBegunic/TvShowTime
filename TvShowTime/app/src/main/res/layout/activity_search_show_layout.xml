@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/searchShowImageView"
+            android:layout_width="64dp"
+            android:layout_height="92dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/searchShowShowName"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/loading"
+            android:textColor="@color/colorMyPrimaryDark"
+            app:layout_constraintStart_toEndOf="@+id/searchShowImageView"
+            app:layout_constraintTop_toTopOf="@+id/searchShowImageView" />
+
+        <TextView
+            android:id="@+id/searchShowRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/loading"
+            android:textColor="@color/colorMyPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/searchShowImageView"
+            app:layout_constraintStart_toStartOf="@+id/searchShowShowName"
+            app:layout_constraintTop_toBottomOf="@+id/searchShowShowName" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/colorMyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="@+id/searchShowRating"
+            app:layout_constraintStart_toEndOf="@+id/searchShowRating"
+            app:layout_constraintTop_toTopOf="@+id/searchShowRating" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
