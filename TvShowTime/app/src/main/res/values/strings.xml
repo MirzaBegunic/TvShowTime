@@ -33,4 +33,6 @@
     <string name="real_name">Real Name</string>
     <string name="role_name">Role Name</string>
     <string name="as">as</string>
+    <string name="search_shows">Search Shows</string>
+    <string name="search">Search</string>
 </resources>

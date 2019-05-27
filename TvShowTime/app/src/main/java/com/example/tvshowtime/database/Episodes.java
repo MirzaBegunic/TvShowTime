@@ -1,5 +1,8 @@
 package com.example.tvshowtime.database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -11,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = Episodes.tab_EpisodesTableName, indices = {@Index(value = {"showId","seasonNumber"},unique = false)},primaryKeys = {Episodes.col_ShowId, Episodes.col_EpisodeId}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.col_ShowId,Seasons.col_SeasonNumber}, childColumns = {Episodes.col_ShowId, Episodes.col_SeasonNumber}, onDelete = CASCADE))
-public class Episodes {
+public class Episodes implements Parcelable {
 
     public static final String tab_EpisodesTableName = "episodes_table";
     public static final String col_ShowId = "showId";
@@ -171,5 +174,15 @@ public class Episodes {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this);
     }
 }

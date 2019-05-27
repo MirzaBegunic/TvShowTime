@@ -45,6 +45,7 @@ public class ShowDetailsCastFragment extends Fragment {
         final List<Cast> cast = new ArrayList<>();
         adapter = new ShowDetailsCastViewAdapter(getContext(),cast);
         recyclerView.setAdapter(adapter);
+
         viewModel.getShowCast().observe(getViewLifecycleOwner(), new Observer<List<Cast>>() {
             @Override
             public void onChanged(List<Cast> casts) {

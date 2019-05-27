@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/episode_0"
+        android:textColor="@color/colorMyPrimaryDark"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/colorMyPrimaryDark"
         app:layout_constraintStart_toEndOf="@+id/detailsEpisodesEpisodeImage"
         app:layout_constraintTop_toTopOf="@+id/detailsEpisodesEpisodeImage" />
 
@@ -35,12 +35,11 @@
     <TextView
         android:id="@+id/detailsEpisodesEpisodeDescription"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/colorMyPrimary"
         android:text="@string/details_episode_description"
-        app:layout_constraintBottom_toBottomOf="@+id/detailsEpisodesEpisodeImage"
+        android:textColor="@color/colorMyPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/detailsEpisodesEpisodeInfo"
         app:layout_constraintTop_toBottomOf="@+id/detailsEpisodesEpisodeInfo" />
