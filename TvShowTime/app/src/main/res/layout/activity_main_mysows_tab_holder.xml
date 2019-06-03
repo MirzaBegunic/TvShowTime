@@ -1,0 +1,45 @@
+<androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="120dp"
+    android:layout_height="170dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="8dp"
+    android:layout_marginBottom="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/myShowsImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:contentDescription="@string/shows_image_description"
+            android:scaleType="centerCrop"
+            android:tint="#94000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tintMode="src_over"
+            card_view:layout_constraintHorizontal_bias="1.0"
+            card_view:layout_constraintVertical_bias="0.0"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/myShowsName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/loading"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/myShowsImage"
+            app:layout_constraintEnd_toEndOf="@+id/myShowsImage"
+            app:layout_constraintStart_toStartOf="@+id/myShowsImage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

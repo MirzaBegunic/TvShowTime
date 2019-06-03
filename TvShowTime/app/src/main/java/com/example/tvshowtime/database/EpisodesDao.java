@@ -31,4 +31,10 @@ public interface EpisodesDao {
 
     @Query("SELECT * FROM episodes_table")
     LiveData<List<Episodes>> getAllEpisodes();
+
+    @Query("UPDATE episodes_table SET episodeSeenStatus = 1 WHERE episodeId=:epId")
+    void setEpisodeAsSeen(int epId);
+
+    @Query("UPDATE episodes_table SET episodeSeenStatus = 0 WHERE episodeId=:epId")
+    void setEpisodeAsNotSeen(int epId);
 }

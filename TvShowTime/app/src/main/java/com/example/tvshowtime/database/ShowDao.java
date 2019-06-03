@@ -24,8 +24,14 @@ public interface ShowDao {
     @Query("SELECT * FROM show_table")
     LiveData<List<Show>> getAllShows();
 
+    @Query("SELECT showId FROM show_table")
+    List<Integer> getShowsIds();
+
     @Query("SELECT * FROM show_table WHERE showId=:Id")
     LiveData<Show> getShowById(int Id);
+
+    @Query("SELECT * FROM show_table WHERE showId=:Id")
+    Show getShowById2(int Id);
 
 
 }

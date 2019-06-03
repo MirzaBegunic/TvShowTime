@@ -35,4 +35,5 @@
     <string name="as">as</string>
     <string name="search_shows">Search Shows</string>
     <string name="search">Search</string>
+    <string name="myshowname">MyShowName</string>
 </resources>

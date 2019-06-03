@@ -2,10 +2,10 @@ package com.example.tvshowtime.adapters;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -23,11 +23,30 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
 
     private LayoutInflater inflater;
     private HashMap<String,Boolean> stateMap;
+    private HashMap<Integer, Boolean> watchedEpisodesMap;
+    private episodeWatchedClickListner onEpClick;
 
-    public EpisodesListViewAdapter(Context context,List<? extends ExpandableGroup> groups,HashMap<String,Boolean> stateMap) {
+    public EpisodesListViewAdapter(Context context,List<? extends ExpandableGroup> groups, HashMap<String, Boolean> stateMap, HashMap<Integer,Boolean> watchedEpisodesMap, episodeWatchedClickListner listner) {
         super(groups);
         inflater = LayoutInflater.from(context);
         this.stateMap = stateMap;
+        this.watchedEpisodesMap = watchedEpisodesMap;
+        this.onEpClick = listner;
+    }
+
+    public void setStateMap(HashMap<String, Boolean> stateMap){
+        this.stateMap = stateMap;
+        notifyDataSetChanged();
+    }
+
+    public void setWatchedEpisodesMap(HashMap<Integer, Boolean> watchedEpisodesMap){
+        this.watchedEpisodesMap = watchedEpisodesMap;
+        notifyDataSetChanged();
+    }
+
+    public void setOnEpClick(episodeWatchedClickListner onEpClick){
+        this.onEpClick = onEpClick;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -108,16 +127,18 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
         private TextView episodeNmbr;
         private TextView episodeName;
         private View itemView;
+        private ImageButton showAdd;
 
         public EpisodeViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.detailsEpisodesEpisodeImage);
             episodeName = itemView.findViewById(R.id.detailsEpisodesEpisodeDescription);
             episodeNmbr = itemView.findViewById(R.id.detailsEpisodesEpisodeInfo);
+            showAdd = itemView.findViewById(R.id.episodeWatchedButton);
             this.itemView = itemView;
         }
 
-        public void onBind(Episodes episode){
+        public void onBind(final Episodes episode){
             if(episode.getImageUrl()!=null && episode.getImageUrl().getUrlSmall()!=null)
                 Glide.with(this.itemView).load(episode.getImageUrl().getUrlSmall()).into(image);
             else
@@ -125,6 +146,37 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
             episodeNmbr.setText("Episode " + episode.getEpisodeNumber());
             if(episode.getEpisodeName()!=null)
                 episodeName.setText(episode.getEpisodeName());
+            if(onEpClick!=null){
+                showAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Boolean bool = watchedEpisodesMap.get(episode.getEpisodeId());
+                        if(bool){
+                            watchedEpisodesMap.put(episode.getEpisodeId(),false);
+                            notifyDataSetChanged();
+                            onEpClick.onClickRemove(episode);
+                        }else{
+                            watchedEpisodesMap.put(episode.getEpisodeId(),true);
+                            notifyDataSetChanged();
+                            onEpClick.onClickAdd(episode);
+                        }
+                    }
+                });
+            }
+            if(!watchedEpisodesMap.isEmpty()){
+                if(watchedEpisodesMap.get(episode.getEpisodeId())!=null){
+                    if(watchedEpisodesMap.get(episode.getEpisodeId())){
+                        showAdd.setImageDrawable(itemView.getResources().getDrawable(R.drawable.episode_watched));
+                    }else{
+                        showAdd.setImageDrawable(itemView.getResources().getDrawable(R.drawable.episode_not_watched));
+                    }
+                }
+            }
         }
+    }
+
+    public interface episodeWatchedClickListner{
+        void onClickAdd(Episodes ep);
+        void onClickRemove(Episodes ep);
     }
 }

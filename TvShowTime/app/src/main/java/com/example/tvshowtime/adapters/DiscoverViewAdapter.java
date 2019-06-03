@@ -26,15 +26,18 @@ import static androidx.core.content.ContextCompat.startActivity;
 public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapter.DiscoverViewHolder>{
 
     private static final String TAG = "DiscoverViewAdapter";
-    public static final String INTENT_EXTRA = "intentExtra";
     private LayoutInflater mInflater;
     private List<Show> showList;
-    private Context context;
+    private onClickDiscover listener;
 
-    public DiscoverViewAdapter(Context context, List<Show> showList){
+    public interface onClickDiscover{
+        void onClick(Show s);
+    }
+
+    public DiscoverViewAdapter(Context context, List<Show> showList, onClickDiscover listener){
         mInflater = LayoutInflater.from(context);
-        this.context = context;
         this.showList = showList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -47,7 +50,7 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
     @Override
     public void onBindViewHolder(@NonNull DiscoverViewHolder holder, int position) {
         Log.d(TAG, "onBind");
-        Show show = showList.get(position);
+        final Show show = showList.get(position);
         if(show.getShowName()!=null && show.getStatus()!=null){
             holder.showNameTextView.setText(show.getShowName());
             holder.statusTextView.setText(show.getStatus());
@@ -56,6 +59,14 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
                 Glide.with(holder.itemView).load(R.drawable.error).into(holder.showImageImageView);
             else
                 Glide.with(holder.itemView).load(show.getImageUrl().getUrlLarge()).into(holder.showImageImageView);
+            if(listener!=null){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onClick(show);
+                    }
+                });
+            }
         }
     }
 
@@ -71,7 +82,7 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
     }
 
 
-    public class DiscoverViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class DiscoverViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView showNameTextView;
         public final TextView statusTextView;
@@ -88,16 +99,6 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewAdapte
             runtimeTextView = itemView.findViewById(R.id.runtimeTextView);
             this.itemView = itemView;
             this.adapter = adapter;
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            int position = getLayoutPosition();
-            Show show = showList.get(position);
-            Intent intent = new Intent(v.getContext(), ShowDetails.class);
-            intent.putExtra(INTENT_EXTRA,show.getShowId());
-            startActivity(v.getContext(),intent,null);
         }
     }
 }

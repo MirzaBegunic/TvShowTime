@@ -67,16 +67,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/colorMyPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="20dp"
                 android:text="@string/name_of_the_show"
                 android:textAlignment="textStart"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/addIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -123,6 +123,19 @@
                 android:nestedScrollingEnabled="true">
 
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/addIcon"
+                android:layout_width="48dp"
+                android:layout_height="0dp"
+                android:background="@color/colorMyPrimaryDark"
+                android:contentDescription="@string/todo"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/showNameForDisplay"
+                app:srcCompat="@drawable/add_show_icon_not_added" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -4,10 +4,8 @@ import android.app.Application;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.tvshowtime.app.AppExecutors;
 import com.example.tvshowtime.database.Cast;
-import com.example.tvshowtime.database.CastDao;
 import com.example.tvshowtime.database.Episodes;
 import com.example.tvshowtime.database.EpisodesDao;
 import com.example.tvshowtime.database.SeasonAndEpisodes;
@@ -15,8 +13,6 @@ import com.example.tvshowtime.database.Seasons;
 import com.example.tvshowtime.database.SeasonsDao;
 import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.database.ShowDao;
-import com.example.tvshowtime.database.Shows;
-import com.example.tvshowtime.database.ShowsDao;
 import com.example.tvshowtime.database.TvShowsDatabase;
 import com.example.tvshowtime.tvmazeapi.DiscoverTabApi;
 import com.example.tvshowtime.tvmazeapi.ShowJson;
@@ -27,7 +23,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -35,7 +30,6 @@ import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,10 +40,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class TvShowRepository {
     private static final String TAG = TvShowRepository.class.getSimpleName();
     private ShowDao showDao;
-    private ShowsDao showsDao;
     private SeasonsDao seasonsDao;
     private EpisodesDao episodesDao;
-    private CastDao castDao;
     private TvMazeApi tvMazeApi;
     private DiscoverTabApi discoverTabApi;
     private Retrofit retrofit;
@@ -61,16 +53,15 @@ public class TvShowRepository {
     private MutableLiveData<List<SeasonAndEpisodes>> showSeasonsAndEpisodesList;
     private MutableLiveData<List<Cast>> showCast;
     private MutableLiveData<List<ShowJson>> searchShows;
+    private LiveData<List<Show>> showsFromDatabase;
 
 
     public TvShowRepository(Application application){
 
         TvShowsDatabase tvShowsDatabase= TvShowsDatabase.getInstance(application);
-        showsDao = tvShowsDatabase.showsDao();
         showDao = tvShowsDatabase.showDao();
         seasonsDao = tvShowsDatabase.seasonsDao();
         episodesDao = tvShowsDatabase.episodesDao();
-        castDao = tvShowsDatabase.castDao();
 
         appExecutorsInstance = AppExecutors.getInstance();
 
@@ -86,6 +77,29 @@ public class TvShowRepository {
                 .build();
         discoverTabApi = retrofit2.create(DiscoverTabApi.class);
 
+    }
+    /** Check if series has been added */
+    public boolean checkIfSeriesIsAdded(final int showId){
+        Future<Boolean> future = appExecutorsInstance.diskExecutor().submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                Show show = showDao.getShowById2(showId);
+                if(show!=null){
+                    return true;
+                }
+                return false;
+            }
+        });
+        Boolean forReturn = false;
+        try {
+            forReturn = future.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return forReturn;
     }
     /**Search series by word*/
     public void searchSeries(String query){
@@ -114,14 +128,14 @@ public class TvShowRepository {
     }
     /**Insert Series in db by Id */
     public void insertSeriesInDatabase(final int showId ){
+
         appExecutorsInstance.diskAndNetworkExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                Shows showsCheck = showsDao.getShowById2(showId);
+                Show showsCheck = showDao.getShowById2(showId);
                 if(showsCheck != null){
                     //TODO: Return to main ui that show has been added
                 }else{
-                    Shows shows = null;
                     Show show = null;
                     List<Seasons> seasonsList = null;
                     List<Episodes> episodesList = null;
@@ -132,7 +146,6 @@ public class TvShowRepository {
                     Call<List<Cast>> castCall = tvMazeApi.getShowCast(showId);
                     try {
                         Response<Show> response = showCall.execute();
-                        shows = new Shows(response.body().getShowId(),response.body().getShowName());
                         show = response.body();
                         Response<List<Seasons>> response1 = seasonsCall.execute();
                         seasonsList = response1.body();
@@ -144,8 +157,7 @@ public class TvShowRepository {
                         //TODO : Make toast message on activity UI
                         e.printStackTrace();
                     }
-                    if(show!=null && show!=null && seasonsList!= null && episodesList!=null && castList!=null){
-                        showsDao.insert(shows);
+                    if(show!=null && seasonsList!= null && episodesList!=null && castList!=null){
                         showDao.insert(show);
                         for (Seasons season: seasonsList
                         ) {
@@ -159,11 +171,6 @@ public class TvShowRepository {
                             episodes.setShowId(showId);
                             episodes.setSeenStatus(false);
                             episodesDao.insert(episodes);
-                        }
-                        for (Cast cast:castList
-                        ) {
-                            cast.setShowId(showId);
-                            castDao.insert(cast);
                         }
                     }else{
                         //TODO : Make toast message on activity UI
@@ -356,5 +363,32 @@ public class TvShowRepository {
         if(searchShows == null)
             searchShows = new MutableLiveData<>();
         return searchShows;
+    }
+
+    public LiveData<List<Show>> getMyShows(){
+        showsFromDatabase = showDao.getAllShows();
+        return showsFromDatabase;
+    }
+
+    public LiveData<List<Episodes>> getShowEpisodes(int showId){
+        return episodesDao.getEpisodesFromShowId(showId);
+    }
+
+    public void setEpisodeAsWatched(final int epId){
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                episodesDao.setEpisodeAsSeen(epId);
+            }
+        });
+    }
+
+    public void setEpisodesAsNotWatched(final int epId){
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                episodesDao.setEpisodeAsNotSeen(epId);
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tvshowtime.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tvshowtime.R;
+import com.example.tvshowtime.activities.ShowDetails;
 import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.adapters.DiscoverViewAdapter;
 import com.example.tvshowtime.viewmodel.DiscoverTabViewModel;
@@ -22,9 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends Fragment implements DiscoverViewAdapter.onClickDiscover {
     private RecyclerView mRecyclerView;
     private DiscoverViewAdapter adapter;
+    public static final String INTENT_EXTRA = "intentExtra";
 
     @Nullable
     @Override
@@ -39,7 +42,7 @@ public class DiscoverFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         DiscoverTabViewModel discoverTabViewModel = ViewModelProviders.of(this  ).get(DiscoverTabViewModel.class);
-        adapter = new DiscoverViewAdapter(getContext(),new ArrayList<Show>());
+        adapter = new DiscoverViewAdapter(getContext(),new ArrayList<Show>(),this);
         mRecyclerView.setAdapter(adapter);
         discoverTabViewModel.getDiscoverShow().observe(getViewLifecycleOwner(), new Observer<List<Show>>() {
             @Override
@@ -50,4 +53,10 @@ public class DiscoverFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onClick(Show s) {
+        Intent intent = new Intent(getContext(),ShowDetails.class);
+        intent.putExtra(INTENT_EXTRA,s.getShowId());
+        startActivity(intent);
+    }
 }

@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import com.google.gson.annotations.SerializedName;
@@ -59,14 +60,17 @@ public class Episodes implements Parcelable {
     @ColumnInfo(name = col_EpisodeAirTimeStamp)
     private String airStamp;
 
+    @Ignore
     @SerializedName("runtime")
     @ColumnInfo(name = col_EpisodeRuntime)
     private int runTime;
 
+    @Ignore
     @Embedded
     @SerializedName("image")
     private ImageLinks imageUrl;
 
+    @Ignore
     @SerializedName("summary")
     @ColumnInfo(name = col_EpisodeSummary)
     private String summary;
@@ -85,6 +89,17 @@ public class Episodes implements Parcelable {
         this.runTime = runTime;
         this.imageUrl = imageUrl;
         this.summary = summary;
+        this.seenStatus = seenStatus;
+    }
+
+    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, String airStamp, Boolean seenStatus) {
+        this.showId = showId;
+        this.episodeId = episodeId;
+        this.episodeName = episodeName;
+        this.episodeNumber = episodeNumber;
+        this.seasonNumber = seasonNumber;
+        this.airDate = airDate;
+        this.airStamp = airStamp;
         this.seenStatus = seenStatus;
     }
 
