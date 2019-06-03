@@ -56,7 +56,7 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
         viewModel = ViewModelProviders.of(this).get(ShowDetailsEpisodesFragmentViewModel.class);
         mapOfWatchedEpisodes = new HashMap<>();
         if(viewModel.checkIfSeriesIsAdded(showId)){
-            viewModel.getShowEpisodes(showId).observe(this, new Observer<List<Episodes>>() {
+            viewModel.getShowEpisodes(showId).observe(getViewLifecycleOwner(), new Observer<List<Episodes>>() {
                 @Override
                 public void onChanged(List<Episodes> episodes) {
                     for (Episodes ep: episodes) {
@@ -65,7 +65,7 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
                 }
             });
         }else{
-            viewModel.getShowEpisodes(showId).observe(this, new Observer<List<Episodes>>() {
+            viewModel.getShowEpisodes(showId).observe(getViewLifecycleOwner(), new Observer<List<Episodes>>() {
                 @Override
                 public void onChanged(List<Episodes> episodes) {
                     for (Episodes ep: episodes) {

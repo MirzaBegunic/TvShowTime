@@ -34,18 +34,8 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
         this.onEpClick = listner;
     }
 
-    public void setStateMap(HashMap<String, Boolean> stateMap){
-        this.stateMap = stateMap;
-        notifyDataSetChanged();
-    }
-
     public void setWatchedEpisodesMap(HashMap<Integer, Boolean> watchedEpisodesMap){
         this.watchedEpisodesMap = watchedEpisodesMap;
-        notifyDataSetChanged();
-    }
-
-    public void setOnEpClick(episodeWatchedClickListner onEpClick){
-        this.onEpClick = onEpClick;
         notifyDataSetChanged();
     }
 
@@ -164,10 +154,12 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
                 });
             }
             if(!watchedEpisodesMap.isEmpty()){
-                if(watchedEpisodesMap.get(episode.getEpisodeId())!=null){
-                    if(watchedEpisodesMap.get(episode.getEpisodeId())){
+                Log.d("binding", "onBind:mapsize " + watchedEpisodesMap.size());
+                if(watchedEpisodesMap.get(episode.getEpisodeId())!=null && episode.getEpisodeNumber()!=0){
+                    Log.d("binding", "onBind: " + episode.getEpisodeNumber() + episode.getEpisodeName());
+                    if(episode.getEpisodeNumber()!= 0 && watchedEpisodesMap.get(episode.getEpisodeId())){
                         showAdd.setImageDrawable(itemView.getResources().getDrawable(R.drawable.episode_watched));
-                    }else{
+                    }else if(episode.getEpisodeNumber()!= 0 ){
                         showAdd.setImageDrawable(itemView.getResources().getDrawable(R.drawable.episode_not_watched));
                     }
                 }

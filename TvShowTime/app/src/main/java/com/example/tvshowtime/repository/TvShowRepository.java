@@ -30,6 +30,8 @@ import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.function.Predicate;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -297,7 +299,17 @@ public class TvShowRepository {
                         } catch (IOException e) {
                             response2 = null;
                         }
-                        if(response2!=null){
+                        if(response2!=null && response2.body()!=null){
+                            response2.body().removeIf(new Predicate<Episodes>() {
+                                @Override
+                                public boolean test(Episodes episodes) {
+                                    if(episodes.getEpisodeNumber()==0){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }
+                            });
                             List<Episodes> episodesList = response2.body();
                             list.add(new SeasonAndEpisodes(name,episodesList));
                         }
