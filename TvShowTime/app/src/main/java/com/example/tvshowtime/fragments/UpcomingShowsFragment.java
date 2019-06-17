@@ -63,15 +63,6 @@ public class UpcomingShowsFragment extends Fragment implements UpcomingShowsView
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.actionSearchFragmentUpcoming){
-            Intent intent = new Intent(getContext(), SearchUpcoming.class);
-            startActivity(intent, null);
-            return true;
-        }else
-            return false;
-    }
 
 
     @Override

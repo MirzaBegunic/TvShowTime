@@ -50,4 +50,6 @@
     <string name="_0_0_10">0.0/10</string>
     <string name="search_your_watch_list">Search Your Watch List</string>
     <string name="search_your_upcoming_shows">Search Your Upcoming Shows</string>
+    <string name="total_time_spent_watching_tv_shows">Total time spent watching TV shows</string>
+    <string name="you_ve_seen_a_total_of">You\'ve seen a total of</string>
 </resources>

@@ -75,15 +75,4 @@ public class WatchListFragment extends Fragment implements WatchListViewAdapter.
         inflater.inflate(R.menu.top_search_watchlist_bar,menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.actionSearchFragment){
-            Log.d("OptionsMenu", "onOptionsItemSelected: pokrecemo");
-            Intent intent = new Intent(getContext(), SearchWatchList.class);
-            startActivity(intent, null);
-            return true;
-        }else
-            return false;
-    }
 }

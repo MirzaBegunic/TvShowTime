@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         Log.d("OptionsMenu", "onCreateOptionsMenu: ACTIVITY");
         getMenuInflater().inflate(R.menu.top_search_bar,menu);
         return true;
@@ -104,13 +105,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.actionSearch:
+
+        switch (item.getItemId()){
+            case R.id.actionSearchMain:
                 Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
-                startActivity(intent,null);
-                return true;
+                startActivity(intent);
+                break;
+            case R.id.actionSearchFragmentUpcoming:
+                Intent intent1 = new Intent(getApplicationContext(),SearchUpcoming.class);
+                startActivity(intent1);
+                break;
+            case R.id.actionSearchFragmentWatchList:
+                Intent intent2 = new Intent(getApplicationContext(),SearchWatchList.class);
+                startActivity(intent2);
+                break;
+            default:
+                return false;
         }
-        return false;
+        return true;
     }
 
     @Override

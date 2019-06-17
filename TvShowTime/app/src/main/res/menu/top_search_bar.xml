@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.droidcafe.MainActivity">
     <item
-        android:id="@+id/actionSearch"
+        android:id="@+id/actionSearchMain"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search_shows"
         app:showAsAction="always" />

@@ -65,7 +65,6 @@ public class Episodes implements Parcelable {
     @SerializedName("airstamp")
     private String airStamp;
 
-    @Ignore
     @SerializedName("runtime")
     @ColumnInfo(name = col_EpisodeRuntime)
     private int runTime;
@@ -99,17 +98,20 @@ public class Episodes implements Parcelable {
         this.airtimestamp = airtimestamp;
     }
 
-    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, ImageLinks imageUrl ,Boolean seenStatus, Long airtimestamp) {
+    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, int runTime, ImageLinks imageUrl ,Boolean seenStatus, Long airtimestamp) {
         this.showId = showId;
         this.episodeId = episodeId;
         this.episodeName = episodeName;
         this.episodeNumber = episodeNumber;
         this.seasonNumber = seasonNumber;
         this.airDate = airDate;
+        this.runTime = runTime;
         this.imageUrl = imageUrl;
         this.seenStatus = seenStatus;
         this.airtimestamp = airtimestamp;
     }
+
+    public Episodes(){}
 
     public int getShowId() {
         return showId;

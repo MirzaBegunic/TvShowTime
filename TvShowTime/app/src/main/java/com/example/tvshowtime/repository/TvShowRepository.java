@@ -67,6 +67,10 @@ public class TvShowRepository {
     private MutableLiveData<Episodes> episodeInfo;
     private MutableLiveData<Episodes> searchUpcoming;
     private MutableLiveData<Episodes> searchWatchList;
+    private MutableLiveData<Long> totalTime;
+    private MutableLiveData<Long> totalEpisodeCount;
+    private MutableLiveData<Show> mostWatched;
+    private MutableLiveData<Long> mostWatchedSum;
 
 
 
@@ -430,7 +434,9 @@ public class TvShowRepository {
     }
 
     public LiveData<List<ShowAndEpisodes>> getUpcomingEpisodes(){
-        upcomingEpisodes = episodesDao.getUpcomingEpisodes(System.currentTimeMillis());
+        Long timeStamp = System.currentTimeMillis();
+        Log.d("Timestamp", "getUpcomingEpisodes: "+timeStamp);
+        upcomingEpisodes = episodesDao.getUpcomingEpisodes(timeStamp);
         return upcomingEpisodes;
     }
 
@@ -501,6 +507,59 @@ public class TvShowRepository {
         if(searchUpcoming==null)
             searchUpcoming = new MutableLiveData<>();
         return searchUpcoming;
+    }
+
+    public LiveData<Long> getTotalTime(){
+        if(totalTime==null)
+            totalTime = new MutableLiveData<>();
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Long time = episodesDao.getTotalTime();
+                totalTime.postValue(time);
+            }
+        });
+        return totalTime;
+    }
+
+    public LiveData<Long> getTotalEpisodesCount(){
+        if(totalEpisodeCount==null)
+            totalEpisodeCount = new MutableLiveData<>();
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Long count = episodesDao.getTotalEpisodesCount();
+                totalEpisodeCount.postValue(count);
+            }
+        });
+        return totalEpisodeCount;
+    }
+
+    public LiveData<Show> getMostWatched(){
+        if(mostWatched==null)
+            mostWatched = new MutableLiveData<>();
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Show showAndMinutesSum = episodesDao.getMostWatched();
+                mostWatched.postValue(showAndMinutesSum);
+            }
+        });
+        return mostWatched;
+    }
+
+    public LiveData<Long> getMostWatchedSum(){
+        if(mostWatchedSum==null)
+            mostWatchedSum = new MutableLiveData<>();
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Long mon = episodesDao.getMostWatchedSum();
+                Log.d("getMost", "run: " + mon);
+                mostWatchedSum.postValue(mon);
+            }
+        });
+        return mostWatchedSum;
     }
 }
 

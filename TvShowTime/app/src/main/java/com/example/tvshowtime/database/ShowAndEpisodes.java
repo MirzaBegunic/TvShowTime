@@ -3,13 +3,7 @@ package com.example.tvshowtime.database;
 import androidx.room.DatabaseView;
 import androidx.room.Embedded;
 
-@DatabaseView(value = "SELECT show_table.*, episodes_table.episodeAirDate, episodes_table.episodeName, episodes_table.episodeNumber, episodes_table.seasonNumber, episodes_table.episodeAirTimeStamp " +
-        "FROM show_table " +
-        "LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId " +
-        "WHERE episodeSeenStatus=0 " +
-        "GROUP BY episodes_table.showId " +
-        "ORDER BY episodeAirTimeStamp DESC",
-    viewName = ShowAndEpisodes.VIEW_NAME)
+@DatabaseView(value = "SELECT show_table.*, episodes_table.episodeAirDate, episodes_table.episodeName, episodes_table.episodeNumber, episodes_table.seasonNumber, episodes_table.episodeAirTimeStamp FROM show_table LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId WHERE episodeSeenStatus=0 ORDER BY episodeAirTimeStamp DESC",viewName = ShowAndEpisodes.VIEW_NAME)
 public class ShowAndEpisodes {
     public static final String VIEW_NAME =  "ShowAndEpisodesView";
 
