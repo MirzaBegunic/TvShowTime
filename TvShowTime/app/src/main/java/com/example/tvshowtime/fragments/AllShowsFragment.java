@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,6 +42,7 @@ public class AllShowsFragment extends Fragment implements AllShowsViewAdapter.on
         int spacing = 0;
         boolean includeEdge = true;
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -62,5 +65,12 @@ public class AllShowsFragment extends Fragment implements AllShowsViewAdapter.on
         Intent intent = new Intent(getContext(), ShowDetails.class);
         intent.putExtra(INTENT_EXTRA,show.getShowId());
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.top_search_bar,menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

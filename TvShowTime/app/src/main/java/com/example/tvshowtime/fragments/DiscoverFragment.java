@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ public class DiscoverFragment extends Fragment implements DiscoverViewAdapter.on
         View view = inflater.inflate(R.layout.activity_main_discover_tab,container,false);
         mRecyclerView = view.findViewById(R.id.discoverRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -51,6 +54,13 @@ public class DiscoverFragment extends Fragment implements DiscoverViewAdapter.on
                 adapter.setNewData(showList);
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.top_search_bar,menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

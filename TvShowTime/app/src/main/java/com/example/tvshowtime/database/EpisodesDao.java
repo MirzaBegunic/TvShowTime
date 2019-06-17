@@ -30,7 +30,7 @@ public interface EpisodesDao {
     @Query("SELECT * FROM episodes_table WHERE showId=:Id AND seasonNumber=:Num")
     List<Episodes> getEpisodes(int Id, int Num);
 
-    @Query("SELECT * FROM " + ShowAndEpisodes.VIEW_NAME + " WHERE " + "episodeAirTimeStamp>:timeStamp")
+    @Query("SELECT * FROM " + ShowAndEpisodes.VIEW_NAME + " WHERE " + "episodeAirTimeStamp>:timeStamp GROUP BY showId")
     LiveData<List<ShowAndEpisodes>> getUpcomingEpisodes(Long timeStamp);
 
     @Query("SELECT * FROM episodes_table WHERE episodeId=:id")
@@ -56,4 +56,16 @@ public interface EpisodesDao {
 
     @Query("SELECT episodes_table.* FROM show_table LEFT JOIN episodes_table ON show_table.showId = episodes_table.showId WHERE showName=:showName AND episodeSeenStatus=0 AND episodeAirTimeStamp<:timeStamp LIMIT 1")
     Episodes searchWatchListShows(String showName, Long timeStamp);
+
+    @Query("SELECT SUM(episodeRunTime) FROM episodes_table WHERE episodeSeenStatus=1")
+    Long getTotalTime();
+
+    @Query("SELECT COUNT(episodeId) FROM episodes_table WHERE episodeSeenStatus=1")
+    Long getTotalEpisodesCount();
+
+    @Query("SELECT SUM(episodeRunTime), show_table.* FROM show_table LEFT JOIN episodes_table ON show_table.showId = episodes_table.showId WHERE episodeSeenStatus=1 GROUP BY episodes_table.showId ORDER BY 1 DESC  LIMIT 1")
+    Show getMostWatched();
+
+    @Query("SELECT SUM(episodeRunTime) FROM show_table LEFT JOIN episodes_table ON show_table.showId = episodes_table.showId WHERE episodeSeenStatus=1 GROUP BY episodes_table.showId ORDER BY 1 DESC LIMIT 1")
+    Long getMostWatchedSum();
 }
