@@ -2,6 +2,7 @@ package com.example.tvshowtime.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Database;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -26,6 +27,12 @@ public interface EpisodesDao {
     @Query("SELECT * FROM episodes_table WHERE showId=:Id AND seasonNumber=:Num")
     LiveData<List<Episodes>> getEpisodesBySeasonId(int Id, int Num);
 
+    @Query("SELECT * FROM episodes_table WHERE showId=:Id AND seasonNumber=:Num")
+    List<Episodes> getEpisodes(int Id, int Num);
+
+    @Query("SELECT * FROM " + ShowAndEpisodes.VIEW_NAME + " WHERE " + "episodeAirTimeStamp>:timeStamp")
+    LiveData<List<ShowAndEpisodes>> getUpcomingEpisodes(Long timeStamp);
+
     @Query("SELECT * FROM episodes_table WHERE episodeId=:id")
     LiveData<Episodes> getEpisodeFromId(int id);
 
@@ -37,4 +44,16 @@ public interface EpisodesDao {
 
     @Query("UPDATE episodes_table SET episodeSeenStatus = 0 WHERE episodeId=:epId")
     void setEpisodeAsNotSeen(int epId);
+
+    @Query("SELECT * FROM episodes_table WHERE showId=:Id AND episodeSeenStatus=0 ORDER BY episodeAirDate ASC LIMIT 1")
+    Episodes getLastNotSeenEpisode(int Id);
+
+    @Query("UPDATE episodes_table SET episodeSeenStatus=1 WHERE showId=:showId AND seasonNumber=:seasonNumber")
+    void setAllSeasonEpisodesAsWatched(int showId, int seasonNumber);
+
+    @Query("SELECT episodes_table.* FROM show_table LEFT JOIN episodes_table ON show_table.showId = episodes_table.showId WHERE showName=:showName AND episodeSeenStatus=0 AND episodeAirTimeStamp>:timeStamp LIMIT 1")
+    Episodes searchUpcomingEpisodes(String showName, Long timeStamp);
+
+    @Query("SELECT episodes_table.* FROM show_table LEFT JOIN episodes_table ON show_table.showId = episodes_table.showId WHERE showName=:showName AND episodeSeenStatus=0 AND episodeAirTimeStamp<:timeStamp LIMIT 1")
+    Episodes searchWatchListShows(String showName, Long timeStamp);
 }

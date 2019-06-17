@@ -29,7 +29,6 @@ public class ShowDetailsEpisodesFragmentViewModel extends AndroidViewModel {
         repository.fetchShowSeasonsAndEpisodesList(showId);
     }
 
-
     public LiveData<List<SeasonAndEpisodes>> getList(){
         list = repository.getShowSeasonsAndEpisodes();
         return list;
@@ -49,5 +48,9 @@ public class ShowDetailsEpisodesFragmentViewModel extends AndroidViewModel {
 
     public void setEpisodeAsNotWatched(int epId){
         repository.setEpisodesAsNotWatched(epId);
+    }
+
+    public void setAllSeasonEpisodesAsWatched(int showId, int seasonNumber){
+        repository.setAllSeasonEpisodesAsWatched(showId,seasonNumber);
     }
 }

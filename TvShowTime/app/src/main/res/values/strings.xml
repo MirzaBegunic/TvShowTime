@@ -36,4 +36,18 @@
     <string name="search_shows">Search Shows</string>
     <string name="search">Search</string>
     <string name="myshowname">MyShowName</string>
+    <string name="allshows">All Shows</string>
+    <string name="watch_list">Watch List</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="watch_next">Watch Next</string>
+    <string name="s00">S00</string>
+    <string name="divider"> | </string>
+    <string name="e00">E00</string>
+    <string name="nameofepisode">NameOfEpisode</string>
+    <string name="yyyy_mm_dd">yyyy-mm-dd</string>
+    <string name="show_name">Show Name</string>
+    <string name="episode_name">Episode Name</string>
+    <string name="_0_0_10">0.0/10</string>
+    <string name="search_your_watch_list">Search Your Watch List</string>
+    <string name="search_your_upcoming_shows">Search Your Upcoming Shows</string>
 </resources>

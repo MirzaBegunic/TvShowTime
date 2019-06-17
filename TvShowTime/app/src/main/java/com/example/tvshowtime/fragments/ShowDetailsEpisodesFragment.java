@@ -1,13 +1,11 @@
 package com.example.tvshowtime.fragments;
 
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -16,17 +14,15 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.tvshowtime.R;
 import com.example.tvshowtime.adapters.EpisodesListViewAdapter;
 import com.example.tvshowtime.database.Episodes;
 import com.example.tvshowtime.database.SeasonAndEpisodes;
 import com.example.tvshowtime.viewmodel.ShowDetailsEpisodesFragmentViewModel;
-
 import java.util.HashMap;
 import java.util.List;
 
-public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesListViewAdapter.episodeWatchedClickListner {
+public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesListViewAdapter.episodeWatchedClickListner, EpisodesListViewAdapter.episodeInfoListener, EpisodesListViewAdapter.seeAllEpisodes {
 
     private ShowDetailsEpisodesFragmentViewModel viewModel;
     private RecyclerView recyclerView;
@@ -55,10 +51,25 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(ShowDetailsEpisodesFragmentViewModel.class);
         mapOfWatchedEpisodes = new HashMap<>();
+        viewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<SeasonAndEpisodes>>() {
+            @Override
+            public void onChanged(List<SeasonAndEpisodes> seasonAndEpisodes) {
+                HashMap<String,Boolean> stateMap = new HashMap<>();
+                for (SeasonAndEpisodes member: seasonAndEpisodes) {
+                    stateMap.put(member.getTitle(),false);
+                }
+                if(viewModel.checkIfSeriesIsAdded(showId))
+                    adapter = new EpisodesListViewAdapter(getContext(),seasonAndEpisodes,stateMap,mapOfWatchedEpisodes,ShowDetailsEpisodesFragment.this, ShowDetailsEpisodesFragment.this, ShowDetailsEpisodesFragment.this, true);
+                else
+                    adapter = new EpisodesListViewAdapter(getContext(),seasonAndEpisodes,stateMap,mapOfWatchedEpisodes,ShowDetailsEpisodesFragment.this, ShowDetailsEpisodesFragment.this, ShowDetailsEpisodesFragment.this, false);
+                recyclerView.setAdapter(adapter);
+            }
+        });
         if(viewModel.checkIfSeriesIsAdded(showId)){
             viewModel.getShowEpisodes(showId).observe(getViewLifecycleOwner(), new Observer<List<Episodes>>() {
                 @Override
                 public void onChanged(List<Episodes> episodes) {
+                    Log.d("episode", "onChanged: changa kad je dodana");
                     for (Episodes ep: episodes) {
                         mapOfWatchedEpisodes.put(ep.getEpisodeId(),ep.getSeenStatus());
                     }
@@ -68,25 +79,21 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
             viewModel.getShowEpisodes(showId).observe(getViewLifecycleOwner(), new Observer<List<Episodes>>() {
                 @Override
                 public void onChanged(List<Episodes> episodes) {
+                    Log.d("episode", "onChanged: changa nije dodana");
                     for (Episodes ep: episodes) {
                         mapOfWatchedEpisodes.put(ep.getEpisodeId(),ep.getSeenStatus());
                     }
-                    adapter.setWatchedEpisodesMap(mapOfWatchedEpisodes);
+                    if(adapter!=null)
+                        adapter.setWatchedEpisodesMap(mapOfWatchedEpisodes);
+
                 }
             });
         }
-        viewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<SeasonAndEpisodes>>() {
-            @Override
-            public void onChanged(List<SeasonAndEpisodes> seasonAndEpisodes) {
-                HashMap<String,Boolean> stateMap = new HashMap<>();
-                for (SeasonAndEpisodes member: seasonAndEpisodes) {
-                    stateMap.put(member.getTitle(),false);
-                }
-                adapter = new EpisodesListViewAdapter(getContext(),seasonAndEpisodes,stateMap,mapOfWatchedEpisodes,ShowDetailsEpisodesFragment.this);
-                recyclerView.setAdapter(adapter);
-            }
-        });
+    }
 
+    public void setAdded(){
+        if(adapter!=null)
+            adapter.setAddedStatus(true);
     }
 
     @Override
@@ -100,5 +107,23 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
     public void onClickRemove(Episodes ep) {
         viewModel.setEpisodeAsNotWatched(ep.getEpisodeId());
         Toast.makeText(getContext(),"Removed!",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(Episodes ep) {
+        EpisodeDetails episodeDetails = new EpisodeDetails(getContext(),ep.getEpisodeName(),ep.getAirDate(),ep.getEpisodeNumber(),ep.getSeasonNumber(),ep.getImageUrl(),ep.getSummary());
+        episodeDetails.show(getFragmentManager(),"Episode Details");
+    }
+
+    @Override
+    public void seeAll(String season) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=7;i<season.length();++i){
+            stringBuilder.append(season.charAt(i));
+        }
+        int seasonNumber = Integer.parseInt(stringBuilder.toString());
+        Log.d("SeasonNumber", "number is" + seasonNumber);
+        viewModel.setAllSeasonEpisodesAsWatched(showId,seasonNumber);
+        Toast.makeText(getContext(),"You've seen them all",Toast.LENGTH_SHORT).show();
     }
 }

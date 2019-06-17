@@ -1,7 +1,5 @@
 package com.example.tvshowtime.database;
 
-import android.os.Parcel;
-
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.List;

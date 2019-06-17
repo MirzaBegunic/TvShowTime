@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.bumptech.glide.Glide;
 import com.example.tvshowtime.R;
 import com.example.tvshowtime.database.Episodes;
@@ -18,6 +21,8 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<EpisodesListViewAdapter.SeasonViewHolder,EpisodesListViewAdapter.EpisodeViewHolder> {
 
@@ -25,13 +30,24 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
     private HashMap<String,Boolean> stateMap;
     private HashMap<Integer, Boolean> watchedEpisodesMap;
     private episodeWatchedClickListner onEpClick;
+    private episodeInfoListener onEpInfoClick;
+    private seeAllEpisodes seeAllEpisodes;
+    private Boolean addedStatus;
 
-    public EpisodesListViewAdapter(Context context,List<? extends ExpandableGroup> groups, HashMap<String, Boolean> stateMap, HashMap<Integer,Boolean> watchedEpisodesMap, episodeWatchedClickListner listner) {
+    public EpisodesListViewAdapter(Context context,List<? extends ExpandableGroup> groups, HashMap<String, Boolean> stateMap, HashMap<Integer,Boolean> watchedEpisodesMap, episodeWatchedClickListner listner, episodeInfoListener onEpInfoClick, seeAllEpisodes seeAllEpisodes, Boolean addedStatus) {
         super(groups);
         inflater = LayoutInflater.from(context);
         this.stateMap = stateMap;
         this.watchedEpisodesMap = watchedEpisodesMap;
         this.onEpClick = listner;
+        this.onEpInfoClick = onEpInfoClick;
+        this.seeAllEpisodes = seeAllEpisodes;
+        this.addedStatus = addedStatus;
+    }
+
+    public void setAddedStatus(Boolean status){
+        addedStatus = status;
+        notifyDataSetChanged();
     }
 
     public void setWatchedEpisodesMap(HashMap<Integer, Boolean> watchedEpisodesMap){
@@ -58,9 +74,20 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
     }
 
     @Override
-    public void onBindGroupViewHolder(SeasonViewHolder holder, int flatPosition, ExpandableGroup group) {
+    public void onBindGroupViewHolder(final SeasonViewHolder holder, int flatPosition, final ExpandableGroup group) {
         Log.d("bindanje", "onBindGroupViewHolder: "+ group.getTitle());
         holder.setContent(group);
+        if(seeAllEpisodes!=null && addedStatus)
+            Glide.with(holder.itemView).load(R.drawable.season_seen).into(holder.seen);
+            holder.seen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    seeAllEpisodes.seeAll(group.getTitle());
+                    Boolean state = stateMap.get(group.getTitle());
+                    if(state)
+                        holder.onClick(holder.itemView);
+                }
+            });
         Boolean state = stateMap.get(group.getTitle());
         if(state)
             holder.animateExpand();
@@ -72,6 +99,7 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
 
         private TextView seasonTitle;
         private ImageView arrow;
+        private ImageView seen;
         private View view;
         private String title;
 
@@ -79,6 +107,7 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
             super(itemView);
             seasonTitle = itemView.findViewById(R.id.detailsEpisodeHeaderText);
             arrow = itemView.findViewById(R.id.expandedButton);
+            seen = itemView.findViewById(R.id.watchAll);
             view = itemView;
         }
 
@@ -86,6 +115,7 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
             seasonTitle.setText(group.getTitle());
             this.title = group.getTitle();
         }
+
 
         @Override
         public void expand() {
@@ -164,11 +194,27 @@ public class EpisodesListViewAdapter extends ExpandableRecyclerViewAdapter<Episo
                     }
                 }
             }
+            if(onEpInfoClick!=null){
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onEpInfoClick.onClick(episode);
+                    }
+                });
+            }
         }
     }
 
     public interface episodeWatchedClickListner{
         void onClickAdd(Episodes ep);
         void onClickRemove(Episodes ep);
+    }
+
+    public interface episodeInfoListener{
+        void onClick(Episodes ep);
+    }
+
+    public interface seeAllEpisodes{
+        void seeAll(String season);
     }
 }

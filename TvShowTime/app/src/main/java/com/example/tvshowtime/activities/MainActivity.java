@@ -3,45 +3,20 @@ package com.example.tvshowtime.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.tvshowtime.R;
-import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.fragments.DiscoverFragment;
+import com.example.tvshowtime.fragments.AllShowsFragment;
 import com.example.tvshowtime.fragments.MyShowsFragment;
 import com.example.tvshowtime.fragments.StatsFragment;
-import com.example.tvshowtime.repository.TvShowRepository;
-import com.example.tvshowtime.tvmazeapi.ApiTester;
-import com.example.tvshowtime.tvmazeapi.ShowJson;
-import com.example.tvshowtime.tvmazeapi.TvMazeApi;
-import com.example.tvshowtime.viewmodel.TvViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("OptionsMenu", "onCreateOptionsMenu: ACTIVITY");
         getMenuInflater().inflate(R.menu.top_search_bar,menu);
         return true;
     }
@@ -126,9 +102,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void actionSearch(MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
-        startActivity(intent,null);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actionSearch:
+                Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+                startActivity(intent,null);
+                return true;
+        }
+        return false;
     }
 
     @Override

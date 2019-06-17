@@ -1,8 +1,6 @@
 package com.example.tvshowtime.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,29 +15,29 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.tvshowtime.R;
 import com.example.tvshowtime.app.App;
-import com.example.tvshowtime.database.Episodes;
 import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.fragments.DiscoverFragment;
 import com.example.tvshowtime.fragments.ShowDetailsCastFragment;
 import com.example.tvshowtime.fragments.ShowDetailsEpisodesFragment;
 import com.example.tvshowtime.fragments.ShowDetailsInfoFragment;
-import com.example.tvshowtime.adapters.DiscoverViewAdapter;
 import com.example.tvshowtime.repository.TvShowRepository;
+import com.example.tvshowtime.services.AddShowToDatabaseService;
 import com.example.tvshowtime.viewmodel.ShowDetailsViewModel;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.HashMap;
-import java.util.List;
+
 
 public class ShowDetails extends AppCompatActivity {
 
+    public static final String ACTION_ADD_SHOW = "action add show";
     private Integer showId;
     private ImageView imageView;
     private TabLayout tabLayout;
     private TextView showName;
-    private ShowDetailsViewModel vievModel;
+    private ShowDetailsViewModel viewModel;
     private ImageView addIcon;
     private TvShowRepository repository;
+    private ShowDetailsEpisodesFragment epFragment;
 
 
 
@@ -47,28 +45,32 @@ public class ShowDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_details);
-        vievModel = ViewModelProviders.of(this).get(ShowDetailsViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ShowDetailsViewModel.class);
         repository = App.getInstance().getTvShowRepository();
         Intent intent = getIntent();
         showId = intent.getIntExtra(DiscoverFragment.INTENT_EXTRA,0);
         if(showId!=0){
-            vievModel.fetchShowInfo(showId);
-            vievModel.fetchShowEpisodes(showId);
-            vievModel.fetchCast(showId);
+            viewModel.fetchShowInfo(showId);
+            viewModel.fetchShowEpisodes(showId);
+            viewModel.fetchCast(showId);
         }
         imageView = findViewById(R.id.imageShow);
         showName = findViewById(R.id.showNameForDisplay);
         tabLayout = findViewById(R.id.tabLayout);
         addIcon = findViewById(R.id.addIcon);
         Boolean seriesIsAdded = repository.checkIfSeriesIsAdded(showId);
-        if(!seriesIsAdded){
+        if(!seriesIsAdded ){
             addIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    repository.insertSeriesInDatabase(showId);
+                    Intent addIntent = new Intent(ShowDetails.this, AddShowToDatabaseService.class);
+                    addIntent.putExtra(ACTION_ADD_SHOW,showId);
+                    startService(addIntent);
                     addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_added));
-                    MainActivity.setTvShowHasBeenAdded();
                     Toast.makeText(getApplicationContext(),"Show added",Toast.LENGTH_SHORT).show();
+                    MainActivity.setTvShowHasBeenAdded();
+                    if(epFragment!=null)
+                        epFragment.setAdded();
                 }
             });
         }else{
@@ -77,7 +79,7 @@ public class ShowDetails extends AppCompatActivity {
 
 
         tabLayout.addOnTabSelectedListener(navigationListner);
-        vievModel.getShowInfo().observe(this, new Observer<Show>() {
+        viewModel.getShowInfo().observe(this, new Observer<Show>() {
             @Override
             public void onChanged(Show show) {
                 if(show.getImageUrl()!=null)
@@ -88,6 +90,12 @@ public class ShowDetails extends AppCompatActivity {
             }
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.frameShow,new ShowDetailsInfoFragment()).commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.destroyData();
     }
 
     private TabLayout.BaseOnTabSelectedListener navigationListner = new TabLayout.BaseOnTabSelectedListener() {
@@ -103,6 +111,7 @@ public class ShowDetails extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putInt("showId",showId);
                     selectedTab = new ShowDetailsEpisodesFragment();
+                    epFragment = (ShowDetailsEpisodesFragment)selectedTab;
                     selectedTab.setArguments(bundle);
                     break;
                 case 2:

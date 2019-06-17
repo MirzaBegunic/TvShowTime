@@ -19,7 +19,6 @@
             android:layout_height="0dp"
             android:contentDescription="@string/shows_image_description"
             android:scaleType="centerCrop"
-            android:tint="#94000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,17 +28,28 @@
             card_view:layout_constraintVertical_bias="0.0"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/myShowsName"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/loading"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/myShowsImage"
-            app:layout_constraintEnd_toEndOf="@+id/myShowsImage"
-            app:layout_constraintStart_toStartOf="@+id/myShowsImage" />
+            android:background="@drawable/image_darken_bottom_portion"
+            card_view:layout_constraintBottom_toBottomOf="@+id/myShowsImage"
+            card_view:layout_constraintEnd_toEndOf="@+id/myShowsImage"
+            card_view:layout_constraintStart_toStartOf="@+id/myShowsImage">
+
+            <TextView
+                android:id="@+id/myShowsName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="2dp"
+                android:text="@string/loading"
+                android:textColor="@color/white"
+                android:paddingTop="10dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

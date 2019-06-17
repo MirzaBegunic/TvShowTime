@@ -33,5 +33,14 @@ public class ShowDetailsViewModel extends AndroidViewModel {
         repository.fetchShowSeasonsAndEpisodesList(showId);
     }
 
+
     public void fetchCast(int showId) {repository.fetchShowCast(showId);}
+
+    public void destroyData(){
+        repository.removeShowDetailsData();
+    }
+
+    public boolean checkIfSeriesIsAdded(int showId){
+        return repository.checkIfSeriesIsAdded(showId);
+    }
 }

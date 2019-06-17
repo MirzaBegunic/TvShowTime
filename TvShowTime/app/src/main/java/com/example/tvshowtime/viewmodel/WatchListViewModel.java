@@ -12,17 +12,18 @@ import com.example.tvshowtime.repository.TvShowRepository;
 
 import java.util.List;
 
-public class MyShowsViewModel extends AndroidViewModel {
-    private LiveData<List<Show>> myShows;
-    private TvShowRepository repository;
+public class WatchListViewModel extends AndroidViewModel {
+    LiveData<List<Show>> watchListShows;
+    TvShowRepository repository;
 
-    public MyShowsViewModel(@NonNull Application application) {
+    public WatchListViewModel(@NonNull Application application) {
         super(application);
         repository = App.getInstance().getTvShowRepository();
     }
 
-    public LiveData<List<Show>> getMyShows(){
-        myShows = repository.getMyShows();
-        return myShows;
+    public LiveData<List<Show>> getWatchListShows(){
+        watchListShows = repository.getWatchedListShows();
+        return watchListShows;
     }
+
 }

@@ -38,19 +38,21 @@
 
         <TextView
             android:id="@+id/detailsCastRoleName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
             android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:text="@string/role_name"
             android:textColor="@color/colorMyPrimary"
             android:textStyle="italic|bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageCast"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageCast" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/as"
             android:textStyle="italic"

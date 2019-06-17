@@ -33,5 +33,7 @@ public interface ShowDao {
     @Query("SELECT * FROM show_table WHERE showId=:Id")
     Show getShowById2(int Id);
 
+    @Query("SELECT show_table.* FROM show_table LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId WHERE episodeSeenStatus=0 GROUP BY episodes_table.showId ORDER BY episodeAirTimeStamp")
+    LiveData<List<Show>> getWatchListShows();
 
 }

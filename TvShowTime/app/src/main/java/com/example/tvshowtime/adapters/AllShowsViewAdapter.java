@@ -16,7 +16,7 @@ import com.example.tvshowtime.database.Show;
 
 import java.util.List;
 
-public class MyShowsTabAdapter extends RecyclerView.Adapter<MyShowsTabAdapter.showViewHolder>{
+public class AllShowsViewAdapter extends RecyclerView.Adapter<AllShowsViewAdapter.showViewHolder>{
 
     private List<Show> shows;
     private onClickMyShows listener;
@@ -27,7 +27,7 @@ public class MyShowsTabAdapter extends RecyclerView.Adapter<MyShowsTabAdapter.sh
     }
 
 
-    public MyShowsTabAdapter(Context context, List<Show> shows, onClickMyShows listener){
+    public AllShowsViewAdapter(Context context, List<Show> shows, onClickMyShows listener){
         this.inflater = LayoutInflater.from(context);
         this.listener = listener;
         this.shows = shows;
@@ -36,7 +36,7 @@ public class MyShowsTabAdapter extends RecyclerView.Adapter<MyShowsTabAdapter.sh
     @NonNull
     @Override
     public showViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view  = inflater.inflate(R.layout.activity_main_mysows_tab_holder,parent,false);
+        View view  = inflater.inflate(R.layout.activity_main_myshows_tab_all_shows_holder,parent,false);
         return new showViewHolder(view);
     }
 

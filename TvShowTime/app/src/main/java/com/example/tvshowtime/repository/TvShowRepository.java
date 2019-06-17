@@ -1,7 +1,10 @@
 package com.example.tvshowtime.repository;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.tvshowtime.app.AppExecutors;
@@ -12,6 +15,7 @@ import com.example.tvshowtime.database.SeasonAndEpisodes;
 import com.example.tvshowtime.database.Seasons;
 import com.example.tvshowtime.database.SeasonsDao;
 import com.example.tvshowtime.database.Show;
+import com.example.tvshowtime.database.ShowAndEpisodes;
 import com.example.tvshowtime.database.ShowDao;
 import com.example.tvshowtime.database.TvShowsDatabase;
 import com.example.tvshowtime.tvmazeapi.DiscoverTabApi;
@@ -21,8 +25,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -56,6 +62,12 @@ public class TvShowRepository {
     private MutableLiveData<List<Cast>> showCast;
     private MutableLiveData<List<ShowJson>> searchShows;
     private LiveData<List<Show>> showsFromDatabase;
+    private LiveData<List<Show>> watchedListShows;
+    private LiveData<List<ShowAndEpisodes>> upcomingEpisodes;
+    private MutableLiveData<Episodes> episodeInfo;
+    private MutableLiveData<Episodes> searchUpcoming;
+    private MutableLiveData<Episodes> searchWatchList;
+
 
 
     public TvShowRepository(Application application){
@@ -129,7 +141,7 @@ public class TvShowRepository {
         return search;
     }
     /**Insert Series in db by Id */
-    public void insertSeriesInDatabase(final int showId ){
+    public void insertSeriesInDatabase(final int showId){
 
         appExecutorsInstance.diskAndNetworkExecutor().execute(new Runnable() {
             @Override
@@ -172,6 +184,7 @@ public class TvShowRepository {
                         ) {
                             episodes.setShowId(showId);
                             episodes.setSeenStatus(false);
+                            episodes.generateTimeStamp(episodes.getAirDate());
                             episodesDao.insert(episodes);
                         }
                     }else{
@@ -315,6 +328,7 @@ public class TvShowRepository {
                         }
                     }
                 }
+
                 showSeasonsAndEpisodesList.postValue(list);
             }
         });
@@ -353,6 +367,12 @@ public class TvShowRepository {
             showCast = new MutableLiveData<>();
         }
         return showCast;
+    }
+
+    public void removeShowDetailsData(){
+        showInfoLiveData = new MutableLiveData<>();
+        showSeasonsAndEpisodesList = new MutableLiveData<>();
+        showCast = new MutableLiveData<>();
     }
 
     public void searchShows(String query){
@@ -403,4 +423,85 @@ public class TvShowRepository {
             }
         });
     }
+
+    public LiveData<List<Show>> getWatchedListShows(){
+        watchedListShows = showDao.getWatchListShows();
+        return watchedListShows;
+    }
+
+    public LiveData<List<ShowAndEpisodes>> getUpcomingEpisodes(){
+        upcomingEpisodes = episodesDao.getUpcomingEpisodes(System.currentTimeMillis());
+        return upcomingEpisodes;
+    }
+
+    public LiveData<Episodes> getEpisodeInfo(final int showId, final int seasonNmbr, final int episodeNmbr){
+        if(episodeInfo==null){
+            episodeInfo = new MutableLiveData<>();
+        }
+        appExecutorsInstance.networkExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<Episodes> call = tvMazeApi.getShowEpisode(showId,seasonNmbr,episodeNmbr);
+                try {
+                    Response<Episodes> response = call.execute();
+                    if(episodeInfo!=null)
+                        episodeInfo.postValue(response.body());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return episodeInfo;
+    }
+
+    public void destroyEpisodeInfo(){
+        episodeInfo = new MutableLiveData<>();
+    }
+
+    public void setAllSeasonEpisodesAsWatched(final int showId, final int seasonNumber){
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                episodesDao.setAllSeasonEpisodesAsWatched(showId,seasonNumber);
+            }
+        });
+    }
+
+
+    public void setSearchWatchList(final String showName, final Long timeStamp){
+        if(searchWatchList==null)
+            searchWatchList = new MutableLiveData<>();
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Episodes episodes = episodesDao.searchWatchListShows(showName,timeStamp);
+                searchWatchList.postValue(episodes);
+            }
+        });
+    }
+    public LiveData<Episodes> getSearchWatchList(){
+        if(searchWatchList==null)
+            searchWatchList = new MutableLiveData<>();
+        return searchWatchList;
+    }
+
+    public void setSearchUpcoming(final String showName, final Long timeStamp){
+        if(searchUpcoming==null)
+            searchUpcoming = new MutableLiveData<>();
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Episodes episodes = episodesDao.searchUpcomingEpisodes(showName,timeStamp);
+                searchUpcoming.postValue(episodes);
+            }
+        });
+    }
+
+    public LiveData<Episodes> getSearchUpcoming(){
+        if(searchUpcoming==null)
+            searchUpcoming = new MutableLiveData<>();
+        return searchUpcoming;
+    }
 }
+
+

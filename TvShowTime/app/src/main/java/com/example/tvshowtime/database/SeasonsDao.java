@@ -27,6 +27,9 @@ public interface SeasonsDao {
     @Query("SELECT * FROM seasons_table WHERE showId=:Id")
     LiveData<List<Seasons>> getSeasonsFromShowById(int Id);
 
+    @Query("SELECT * FROM seasons_table WHERE showId=:Id")
+    List<Seasons> getSeasons(int Id);
+
     @Query("SELECT * FROM seasons_table WHERE seasonId=:Id")
     LiveData<Seasons> getSeasonById(int Id);
 }
