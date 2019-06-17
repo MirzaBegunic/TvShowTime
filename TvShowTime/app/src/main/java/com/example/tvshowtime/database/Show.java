@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = Show.tab_ShowTable, primaryKeys = Show.col_ShowId,foreignKeys = @ForeignKey(entity = Shows.class,parentColumns = Shows.col_ShowId, childColumns = Show.col_ShowId, onDelete = CASCADE))
+@Entity(tableName = Show.tab_ShowTable, primaryKeys = Show.col_ShowId)
 public class Show {
 
     public static final String tab_ShowTable = "show_table";
@@ -42,27 +42,34 @@ public class Show {
     @ColumnInfo(name = col_ShowName)
     private String showName;
 
+    @Ignore
     @SerializedName("url")
     @ColumnInfo(name = col_ShowUrl)
     private String url;
 
+
+    @Ignore
     @TypeConverters(GenresConverter.class)
     @SerializedName("genres")
     @ColumnInfo(name = col_ShowGenres)
     private String [] genres;
 
+    @Ignore
     @SerializedName("status")
     @ColumnInfo(name = col_ShowStatus)
     private String status;
 
+    @Ignore
     @SerializedName("runtime")
     @ColumnInfo(name = col_ShowRunTime)
     private int runTime;
 
+    @Ignore
     @SerializedName("premiered")
     @ColumnInfo(name = col_ShowPremier)
     private String premiered;
 
+    @Ignore
     @Embedded
     @SerializedName("rating")
     private Rating rating;
@@ -71,10 +78,12 @@ public class Show {
     @SerializedName("image")
     private ImageLinks imageUrl;
 
+    @Ignore
     @SerializedName("summary")
     @ColumnInfo(name = col_ShowDescription)
     private String description;
 
+    @Ignore
     @Embedded
     @SerializedName("_links")
     private Links links;
@@ -113,6 +122,14 @@ public class Show {
         this.links = links;
         this.network = network;
     }
+
+
+    public Show(int showId, String showName, ImageLinks imageUrl) {
+        this.showId = showId;
+        this.showName = showName;
+        this.imageUrl = imageUrl;
+    }
+
 
 
     public int getShowId() {

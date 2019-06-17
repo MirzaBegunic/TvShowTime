@@ -8,9 +8,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = Episodes.tab_EpisodesTableName, indices = {@Index(value = {"showId","seasonNumber"},unique = false)},primaryKeys = {Episodes.col_ShowId, Episodes.col_EpisodeId}, foreignKeys = @ForeignKey(entity = Seasons.class, parentColumns = {Seasons.col_ShowId,Seasons.col_SeasonNumber}, childColumns = {Episodes.col_ShowId, Episodes.col_SeasonNumber}, onDelete = CASCADE))
@@ -55,10 +61,11 @@ public class Episodes implements Parcelable {
     @ColumnInfo(name = col_EpisodeAirDate)
     private String airDate;
 
+    @Ignore
     @SerializedName("airstamp")
-    @ColumnInfo(name = col_EpisodeAirTimeStamp)
     private String airStamp;
 
+    @Ignore
     @SerializedName("runtime")
     @ColumnInfo(name = col_EpisodeRuntime)
     private int runTime;
@@ -74,18 +81,34 @@ public class Episodes implements Parcelable {
     @ColumnInfo(name = col_EpisodeSeenStatus)
     private Boolean seenStatus;
 
-    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, String airStamp, int runTime, ImageLinks imageUrl, String summary, Boolean seenStatus) {
+    @ColumnInfo(name = col_EpisodeAirTimeStamp)
+    private Long airtimestamp;
+
+
+    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, int runTime, ImageLinks imageUrl, String summary, Boolean seenStatus, Long airtimestamp) {
         this.showId = showId;
         this.episodeId = episodeId;
         this.episodeName = episodeName;
         this.episodeNumber = episodeNumber;
         this.seasonNumber = seasonNumber;
         this.airDate = airDate;
-        this.airStamp = airStamp;
         this.runTime = runTime;
         this.imageUrl = imageUrl;
         this.summary = summary;
         this.seenStatus = seenStatus;
+        this.airtimestamp = airtimestamp;
+    }
+
+    public Episodes(int showId, int episodeId, String episodeName, int episodeNumber, int seasonNumber, String airDate, ImageLinks imageUrl ,Boolean seenStatus, Long airtimestamp) {
+        this.showId = showId;
+        this.episodeId = episodeId;
+        this.episodeName = episodeName;
+        this.episodeNumber = episodeNumber;
+        this.seasonNumber = seasonNumber;
+        this.airDate = airDate;
+        this.imageUrl = imageUrl;
+        this.seenStatus = seenStatus;
+        this.airtimestamp = airtimestamp;
     }
 
     public int getShowId() {
@@ -176,6 +199,24 @@ public class Episodes implements Parcelable {
         this.summary = summary;
     }
 
+    public Long getAirtimestamp() {
+        return airtimestamp;
+    }
+
+    public void setAirtimestamp(Long airtimestamp) {
+        this.airtimestamp = airtimestamp;
+    }
+
+    public void generateTimeStamp(String timestamp) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = simpleDateFormat.parse(timestamp);
+            airtimestamp = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -185,4 +226,5 @@ public class Episodes implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this);
     }
+
 }

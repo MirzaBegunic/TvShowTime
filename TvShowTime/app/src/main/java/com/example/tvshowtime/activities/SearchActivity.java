@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.tvshowtime.R;
 import com.example.tvshowtime.adapters.SearchShowAdapter;
+import com.example.tvshowtime.database.Show;
 import com.example.tvshowtime.tvmazeapi.ShowJson;
 import com.example.tvshowtime.viewmodel.SearchActivityViewModel;
 
@@ -30,13 +32,16 @@ import java.util.concurrent.TimeUnit;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
 
-public class SearchActivity extends AppCompatActivity {
+import static androidx.core.content.ContextCompat.startActivity;
+
+public class SearchActivity extends AppCompatActivity implements SearchShowAdapter.SearchShowAdapterOnClickListener {
 
     private PublishSubject<String> subject;
     private EditText searchShow;
     private RecyclerView recyclerView;
     private SearchShowAdapter adapter;
     private SearchActivityViewModel viewModel;
+    public static final String INTENT_EXTRA = "intentExtra";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +89,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-        adapter = new SearchShowAdapter(getApplicationContext(),new ArrayList<ShowJson>());
+        adapter = new SearchShowAdapter(getApplicationContext(),new ArrayList<ShowJson>(), this);
         recyclerView.setAdapter(adapter);
         viewModel.getSearchedShows().observe(this, new Observer<List<ShowJson>>() {
             @Override
@@ -98,5 +103,12 @@ public class SearchActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString("search",searchShow.getText().toString());
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onClick(Show s) {
+        Intent intent = new Intent(this, ShowDetails.class);
+        intent.putExtra(INTENT_EXTRA,s.getShowId());
+        startActivity(intent);
     }
 }

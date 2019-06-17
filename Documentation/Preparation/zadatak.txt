@@ -3,7 +3,8 @@ Aplikacija treba da ima sljedece mogucnosti:
 Aplikacija ce imati 3 donja tab-a: My Shows, Discover i Stats
 
 Ukoliko korisnik nije dodao ni jednu seriju na startu aplikacije ce uvijek se prvo prikazati Discover tab. Taj tab ce po defaultu uzeti serije sa API poziva
-http://www.tvmaze.com/api#show-updates na osnovu zadnje update-anih epizoda i prikazat serije koje su zadnje update-ane. U tom fragmentu takodje treba da se u action baru nalazi search koji ce nakon sto korisnik
+http://www.tvmaze.com/api#show-updates na osnovu zadnje update-anih epizoda i prikazat serije koje su zadnje update-ane.
+U tom fragmentu takodje treba da se u action baru nalazi search koji ce nakon sto korisnik
 unese neke kljucne rijeci pozvati API poziv http://www.tvmaze.com/api#show-search i prikazati serije koje zadovoljavaju kriterij pretrage.
 Klikom na bilo koju seriju u tom fragmentu otvorit ce se nova aktivnost koja ce ucitati sve informacije o toj seriji (opis, glumce, sezone) te ce korisnik imat mogucnost da doda tu seriju u My Shows.
 Kada je serija dodana u My Shows (snimit ce se u lokalnu bazu), korisnik ima mogucnost da kod prikaza serije moze u svakoj sezoni oznacit epizode koje je gledao.

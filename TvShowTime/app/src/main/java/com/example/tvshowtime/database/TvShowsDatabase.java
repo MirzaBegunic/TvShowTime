@@ -7,15 +7,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Shows.class,Show.class,Seasons.class,Episodes.class,Cast.class},version = 1,exportSchema = false)
+@Database(entities = {Show.class,Seasons.class,Episodes.class},views = {ShowAndEpisodes.class},version = 1,exportSchema = false)
 public abstract class TvShowsDatabase extends RoomDatabase {
     private static TvShowsDatabase instance;
-
-    public abstract ShowsDao showsDao();
     public abstract ShowDao showDao();
     public abstract SeasonsDao seasonsDao();
     public abstract EpisodesDao episodesDao();
-    public abstract CastDao castDao();
 
 
     public static synchronized TvShowsDatabase getInstance(Context context){
@@ -27,4 +24,6 @@ public abstract class TvShowsDatabase extends RoomDatabase {
         }
         return instance;
     }
+
 }
+
