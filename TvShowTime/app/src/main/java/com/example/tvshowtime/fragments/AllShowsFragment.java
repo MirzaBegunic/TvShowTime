@@ -70,7 +70,7 @@ public class AllShowsFragment extends Fragment implements AllShowsViewAdapter.on
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.top_search_bar,menu);
+        inflater.inflate(R.menu.top_sync_menu,menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

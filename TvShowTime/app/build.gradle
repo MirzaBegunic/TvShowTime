@@ -52,4 +52,7 @@ dependencies {
     implementation 'io.reactivex:rxandroid:1.0.1'
     implementation 'io.reactivex:rxjava:1.0.14'
     implementation 'com.artemzin.rxjava:proguard-rules:1.0.14.2'
+
+    implementation 'androidx.work:work-runtime:2.0.1'
+
 }

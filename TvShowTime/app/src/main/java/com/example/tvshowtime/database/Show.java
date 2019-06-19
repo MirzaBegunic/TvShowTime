@@ -92,6 +92,8 @@ public class Show {
     @SerializedName("network")
     private Network network;
 
+    private Long timestamp;
+
 
 
 
@@ -124,10 +126,11 @@ public class Show {
     }
 
 
-    public Show(int showId, String showName, ImageLinks imageUrl) {
+    public Show(int showId, String showName, ImageLinks imageUrl, Long timestamp) {
         this.showId = showId;
         this.showName = showName;
         this.imageUrl = imageUrl;
+        this.timestamp = timestamp;
     }
 
 
@@ -224,4 +227,11 @@ public class Show {
 
     public void setNetwork (Network network) { this.network = network; }
 
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

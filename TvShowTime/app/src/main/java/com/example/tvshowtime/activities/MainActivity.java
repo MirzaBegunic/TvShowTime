@@ -3,6 +3,11 @@ package com.example.tvshowtime.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,19 +15,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.tvshowtime.R;
+import com.example.tvshowtime.app.SyncShowsWorkerClass;
+import com.example.tvshowtime.app.TodayEpisodesWorkerClass;
 import com.example.tvshowtime.fragments.DiscoverFragment;
 import com.example.tvshowtime.fragments.AllShowsFragment;
 import com.example.tvshowtime.fragments.MyShowsFragment;
 import com.example.tvshowtime.fragments.StatsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
     public static final String SavedFragment = "FragmentID";
     public static final String TvShowAdded = "TvShowAdded";
+    public static final String NOTFICATION_PREF_KEY = "NotfPerfKey";
+    public static final String SYNC_PREF_KEY = "SyncPerfKey";
     private BottomNavigationView bottomNavigationView;
     public static SharedPreferences preferences;
     public static SharedPreferences.Editor editor;
@@ -34,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences = getApplicationContext().getSharedPreferences("MyPreferences",MODE_PRIVATE);
         editor = preferences.edit();
+        if(preferences.getBoolean(NOTFICATION_PREF_KEY,true)){
+            setNotifications();
+        }
+        if(preferences.getBoolean(SYNC_PREF_KEY,true)){
+            setUpdate();
+        }
         if(savedInstanceState!=null){
             selectedTabId = savedInstanceState.getInt(SavedFragment,0);
         }else{
@@ -119,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(getApplicationContext(),SearchWatchList.class);
                 startActivity(intent2);
                 break;
+            case R.id.actionSync:
+                startUpdate();
+                break;
             default:
                 return false;
         }
@@ -136,5 +157,59 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(TvShowAdded,true);
             editor.commit();
         }
+    }
+
+    public void setNotifications(){
+        Log.d(TAG, "setNotifications: dodajemo notifikaciju");
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+                .build();
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(TodayEpisodesWorkerClass.class,24, TimeUnit.HOURS)
+                .setConstraints(constraints)
+                .build();
+        WorkManager workManager = WorkManager.getInstance();
+        workManager.enqueue(periodicWorkRequest);
+        editor.putBoolean(NOTFICATION_PREF_KEY,false);
+        editor.commit();
+    }
+
+    public void setUpdate(){
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(SyncShowsWorkerClass.class,23, TimeUnit.HOURS)
+                .setConstraints(constraints)
+                .build();
+        WorkManager workManager = WorkManager.getInstance();
+        workManager.enqueue(periodicWorkRequest);
+        editor.putBoolean(SYNC_PREF_KEY,false);
+        editor.commit();
+    }
+
+
+    public void showNotification() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+                .build();
+        OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(TodayEpisodesWorkerClass.class)
+                .setConstraints(constraints)
+                .build();
+        WorkManager workManager = WorkManager.getInstance();
+        workManager.enqueue(oneTimeWorkRequest);
+    }
+
+    public void startUpdate(){
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresCharging(false)
+                .build();
+        OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(SyncShowsWorkerClass.class)
+                .setConstraints(constraints)
+                .build();
+        WorkManager workManager = WorkManager.getInstance();
+        workManager.enqueue(oneTimeWorkRequest);
     }
 }

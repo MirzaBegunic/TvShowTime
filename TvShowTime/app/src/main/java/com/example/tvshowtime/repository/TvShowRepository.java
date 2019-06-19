@@ -151,9 +151,7 @@ public class TvShowRepository {
             @Override
             public void run() {
                 Show showsCheck = showDao.getShowById2(showId);
-                if(showsCheck != null){
-                    //TODO: Return to main ui that show has been added
-                }else{
+                if(showsCheck == null){
                     Show show = null;
                     List<Seasons> seasonsList = null;
                     List<Episodes> episodesList = null;
@@ -176,6 +174,7 @@ public class TvShowRepository {
                         e.printStackTrace();
                     }
                     if(show!=null && seasonsList!= null && episodesList!=null && castList!=null){
+                        show.setTimestamp(System.currentTimeMillis());
                         showDao.insert(show);
                         for (Seasons season: seasonsList
                         ) {
@@ -560,6 +559,15 @@ public class TvShowRepository {
             }
         });
         return mostWatchedSum;
+    }
+
+    public void removeFromDb(final int showId){
+        appExecutorsInstance.diskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                showDao.delete(showDao.getShowById2(showId));
+            }
+        });
     }
 }
 

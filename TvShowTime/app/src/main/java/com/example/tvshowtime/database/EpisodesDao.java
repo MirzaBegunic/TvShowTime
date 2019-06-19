@@ -2,12 +2,10 @@ package com.example.tvshowtime.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Database;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import java.util.List;
 
 @Dao
@@ -23,6 +21,9 @@ public interface EpisodesDao {
 
     @Query("SELECT * FROM episodes_table WHERE showId=:Id")
     LiveData<List<Episodes>> getEpisodesFromShowId(int Id);
+
+    @Query("SELECT * FROM episodes_table WHERE showId=:Id")
+    List<Episodes> getEpisodesFromShowIdNL(int Id);
 
     @Query("SELECT * FROM episodes_table WHERE showId=:Id AND seasonNumber=:Num")
     LiveData<List<Episodes>> getEpisodesBySeasonId(int Id, int Num);
@@ -68,4 +69,10 @@ public interface EpisodesDao {
 
     @Query("SELECT SUM(episodeRunTime) FROM show_table LEFT JOIN episodes_table ON show_table.showId = episodes_table.showId WHERE episodeSeenStatus=1 GROUP BY episodes_table.showId ORDER BY 1 DESC LIMIT 1")
     Long getMostWatchedSum();
+
+    @Query("SELECT show_table.showId, show_table.showName, episodes_table.episodeName FROM show_table LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId  WHERE episodeAirDate = :episodeAirDate")
+    List<ShowAndEpisodesForNotification> getTodayEpisodesForNotification(String episodeAirDate);
+
+    @Query("UPDATE episodes_table SET episodeName=:episodeName, episodeAirDate=:episodeAirDate,episodeSummary=:episodeSummary,episodeAirTimeStamp=:episodeAirTimeStamp,imageSmall=:imageSmall,imageLarge=:imageLarge WHERE showId=:showId AND episodeId = :episodeId")
+    void updateEpisodesTable(String episodeName, String episodeAirDate, String episodeSummary, Long episodeAirTimeStamp, String imageSmall, String imageLarge, int showId, int episodeId);
 }

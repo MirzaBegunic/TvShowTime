@@ -74,6 +74,14 @@ public class ShowDetails extends AppCompatActivity {
                 }
             });
         }else{
+            addIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    repository.removeFromDb(showId);
+                    addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_not_added));
+                    Toast.makeText(getApplicationContext(),"Show removed",Toast.LENGTH_SHORT).show();
+                }
+            });
             addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_added));
         }
 

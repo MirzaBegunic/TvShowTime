@@ -36,4 +36,9 @@ public interface ShowDao {
     @Query("SELECT show_table.* FROM show_table LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId WHERE episodeSeenStatus=0 GROUP BY episodes_table.showId ORDER BY episodeAirTimeStamp")
     LiveData<List<Show>> getWatchListShows();
 
+    @Query("UPDATE show_table SET timestamp=:timestamp, imageSmall=:imageSmall, imageLarge=:imageLarge WHERE showId=:showId")
+    void updateShowTable(Long timestamp, String imageSmall, String imageLarge, int showId);
+
+    @Query("SELECT show_table.timestamp FROM show_table WHERE showId=:showId")
+    Long getShowsUpdatedTimeStamp(int showId);
 }

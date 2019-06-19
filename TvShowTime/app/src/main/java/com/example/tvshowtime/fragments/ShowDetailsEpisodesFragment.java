@@ -124,6 +124,7 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
         int seasonNumber = Integer.parseInt(stringBuilder.toString());
         Log.d("SeasonNumber", "number is" + seasonNumber);
         viewModel.setAllSeasonEpisodesAsWatched(showId,seasonNumber);
-        Toast.makeText(getContext(),"You've seen them all",Toast.LENGTH_SHORT).show();
+        if(viewModel.checkIfSeriesIsAdded(showId))
+            Toast.makeText(getContext(),"You've seen them all",Toast.LENGTH_SHORT).show();
     }
 }
