@@ -46,27 +46,13 @@ public class SyncShowsWorkerClass extends Worker {
             ShowDao showDao = tvShowsDatabase.showDao();
             SeasonsDao seasonsDao = tvShowsDatabase.seasonsDao();
             EpisodesDao episodesDao = tvShowsDatabase.episodesDao();
-            Retrofit retrofit2 = new Retrofit.Builder()
-                    .baseUrl("http://api.tvmaze.com")
-                    .addConverterFactory(ScalarsConverterFactory.create())
-                    .build();
-            DiscoverTabApi discoverTabApi = retrofit2.create(DiscoverTabApi.class);
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://api.tvmaze.com")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             TvMazeApi tvMazeApi = retrofit.create(TvMazeApi.class);
-            Call<String> call = discoverTabApi.getUpdatesTimeStamps();
-            Response<String> response = call.execute();
-            String timestampsJson = response.body();
-            Type mapType = new TypeToken<Map<Integer,Long>>(){}.getType();
-            Gson gson = new Gson();
-            Map<Integer,Long> mapOfTimestamps = gson.fromJson(timestampsJson,mapType);
             List<Integer> listOfShowIds = showDao.getShowsIds();
             for (Integer id:listOfShowIds) {
-                Long restTimeStamp = mapOfTimestamps.get(id);
-                Long databaseTimeStamp = showDao.getShowsUpdatedTimeStamp(id);
-                if(restTimeStamp>databaseTimeStamp){
                     Call<Show> showCall = tvMazeApi.getShowById(id);
                     Call<List<Episodes>> episodesCall = tvMazeApi.getShowsEpisodes(id);
                     Call<List<Seasons>> seasonsCall = tvMazeApi.getShowSeasons(id);
@@ -110,10 +96,11 @@ public class SyncShowsWorkerClass extends Worker {
                             if(episode.getImageUrl()==null){
                                 episode.setImageUrl(new ImageLinks(" "," "));
                             }
+                            Log.d("updates", "doWork: " + episode.getEpisodeNumber() + " " + episode.getSummary());
                             episodesDao.updateEpisodesTable(episode.getEpisodeName(),episode.getAirDate(),episode.getSummary(),episode.getAirtimestamp(),episode.getImageUrl().getUrlSmall(),episode.getImageUrl().getUrlLarge(),id,episode.getEpisodeId());
                         }
                     }
-                }
+
             }
             return Result.success();
         }catch (Exception e){

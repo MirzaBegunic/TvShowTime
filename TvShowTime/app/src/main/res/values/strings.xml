@@ -52,4 +52,6 @@
     <string name="search_your_upcoming_shows">Search Your Upcoming Shows</string>
     <string name="total_time_spent_watching_tv_shows">Total time spent watching TV shows</string>
     <string name="you_ve_seen_a_total_of">You\'ve seen a total of</string>
+    <string name="sync_shows">Sync Shows</string>
+    <string name="search_your_watchlist">Search Your WatchList</string>
 </resources>

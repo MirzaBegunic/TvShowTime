@@ -96,6 +96,11 @@ public class ShowDetailsEpisodesFragment extends Fragment implements EpisodesLis
             adapter.setAddedStatus(true);
     }
 
+    public void setNotAdded(){
+        if(adapter!=null)
+            adapter.setAddedStatus(false);
+    }
+
     @Override
     public void onClickAdd(Episodes ep) {
         viewModel.setEpisodeAsWatched(ep.getEpisodeId());

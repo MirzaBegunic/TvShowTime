@@ -1,6 +1,7 @@
 package com.mirza.tvshowtime.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,7 +63,8 @@ public class UpcomingShowsFragment extends Fragment implements UpcomingShowsView
 
     @Override
     public void onClick(ShowAndEpisodes episodes) {
-        EpisodeDetails episodeDetails = new EpisodeDetails(getContext(),episodes.getEpisodeName(),episodes.getEpisodeAirDate(),episodes.getEpisodeNumber(),episodes.getSeasonNumber(),episodes.getImageUrl(),episodes.getSummary());
+        Log.d("logovi", "onClick: " + episodes.getEpisodeSummary());
+        EpisodeDetails episodeDetails = new EpisodeDetails(getContext(),episodes.getEpisodeName(),episodes.getEpisodeAirDate(),episodes.getEpisodeNumber(),episodes.getSeasonNumber(),episodes.getImageUrl(),episodes.getEpisodeSummary());
         episodeDetails.show(getFragmentManager(),"Episode Details");
     }
 

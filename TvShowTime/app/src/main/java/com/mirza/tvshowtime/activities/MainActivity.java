@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mirza.tvshowtime.R;
 import com.mirza.tvshowtime.app.SyncShowsWorkerClass;
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.actionSync:
+                Toast.makeText(getApplicationContext(),"Syncing",Toast.LENGTH_SHORT).show();
                 startUpdate();
                 break;
             default:

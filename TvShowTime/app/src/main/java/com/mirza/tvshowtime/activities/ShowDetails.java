@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,33 +60,34 @@ public class ShowDetails extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         addIcon = findViewById(R.id.addIcon);
         Boolean seriesIsAdded = repository.checkIfSeriesIsAdded(showId);
-        if(!seriesIsAdded ){
-            addIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        if(seriesIsAdded)
+            addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_added));
+        else
+            addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_not_added));
+        addIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!repository.checkIfSeriesIsAdded(showId)){
                     Intent addIntent = new Intent(ShowDetails.this, AddShowToDatabaseService.class);
                     addIntent.putExtra(ACTION_ADD_SHOW,showId);
                     startService(addIntent);
                     addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_added));
                     Toast.makeText(getApplicationContext(),"Show added",Toast.LENGTH_SHORT).show();
                     MainActivity.setTvShowHasBeenAdded();
-                    if(epFragment!=null)
+                    if(tabLayout.getSelectedTabPosition()==1 && epFragment!=null)
                         epFragment.setAdded();
-                }
-            });
-        }else{
-            addIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                }else{
                     repository.removeFromDb(showId);
                     addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_not_added));
                     Toast.makeText(getApplicationContext(),"Show removed",Toast.LENGTH_SHORT).show();
+                    if(tabLayout.getSelectedTabPosition()==1){
+                        Log.d("logs", "onClick: ");
+                        TabLayout.Tab tab = tabLayout.getTabAt(0);
+                        tab.select();
+                    }
                 }
-            });
-            addIcon.setImageDrawable(getDrawable(R.drawable.add_show_icon_added));
-        }
-
-
+            }
+        });
         tabLayout.addOnTabSelectedListener(navigationListner);
         viewModel.getShowInfo().observe(this, new Observer<Show>() {
             @Override

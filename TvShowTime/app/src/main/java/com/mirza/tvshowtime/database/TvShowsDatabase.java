@@ -7,7 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Show.class,Seasons.class,Episodes.class},views = {ShowAndEpisodes.class},version = 3,exportSchema = false)
+@Database(entities = {Show.class,Seasons.class,Episodes.class},views = {ShowAndEpisodes.class},version = 4,exportSchema = false)
 public abstract class TvShowsDatabase extends RoomDatabase {
     private static TvShowsDatabase instance;
     public abstract ShowDao showDao();

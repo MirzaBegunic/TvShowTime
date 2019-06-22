@@ -3,13 +3,14 @@ package com.mirza.tvshowtime.database;
 import androidx.room.DatabaseView;
 import androidx.room.Embedded;
 
-@DatabaseView(value = "SELECT show_table.*, episodes_table.episodeAirDate, episodes_table.episodeName, episodes_table.episodeNumber, episodes_table.seasonNumber, episodes_table.episodeAirTimeStamp FROM show_table LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId WHERE episodeSeenStatus=0 ORDER BY episodeAirTimeStamp DESC",viewName = ShowAndEpisodes.VIEW_NAME)
+@DatabaseView(value = "SELECT show_table.*, episodes_table.episodeAirDate, episodes_table.episodeName, episodes_table.episodeNumber, episodes_table.seasonNumber,episodes_table.episodeSummary ,episodes_table.episodeAirTimeStamp FROM show_table LEFT JOIN episodes_table ON show_table.showId=episodes_table.showId WHERE episodeSeenStatus=0 ORDER BY episodeAirTimeStamp DESC",viewName = ShowAndEpisodes.VIEW_NAME)
 public class ShowAndEpisodes {
     public static final String VIEW_NAME =  "ShowAndEpisodesView";
 
     private int showId;
 
     private String showName;
+
 
     @Embedded
     private ImageLinks imageUrl;
@@ -22,12 +23,12 @@ public class ShowAndEpisodes {
 
     private int seasonNumber;
 
-    private String summary;
+    private String episodeSummary;
 
     private Long episodeAirTimeStamp;
 
 
-    public ShowAndEpisodes(int showId, String showName, ImageLinks imageUrl, String episodeAirDate, String episodeName, int episodeNumber, int seasonNumber, String summary, Long episodeAirTimeStamp) {
+    public ShowAndEpisodes(int showId, String showName, ImageLinks imageUrl, String episodeAirDate, String episodeName, int episodeNumber, int seasonNumber, String episodeSummary, Long episodeAirTimeStamp) {
         this.showId = showId;
         this.showName = showName;
         this.imageUrl = imageUrl;
@@ -35,7 +36,7 @@ public class ShowAndEpisodes {
         this.episodeName = episodeName;
         this.episodeNumber = episodeNumber;
         this.seasonNumber = seasonNumber;
-        this.summary = summary;
+        this.episodeSummary = episodeSummary;
         this.episodeAirTimeStamp = episodeAirTimeStamp;
     }
 
@@ -71,8 +72,12 @@ public class ShowAndEpisodes {
         return episodeAirTimeStamp;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getEpisodeSummary() {
+        return episodeSummary;
+    }
+
+    public void setEpisodeSummary(String episodeSummary) {
+        this.episodeSummary = episodeSummary;
     }
 
     public void setShowId(int showId) {
@@ -107,7 +112,5 @@ public class ShowAndEpisodes {
         this.episodeAirTimeStamp = episodeAirTimeStamp;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
+
 }

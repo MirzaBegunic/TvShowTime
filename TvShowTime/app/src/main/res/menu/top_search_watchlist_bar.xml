@@ -5,6 +5,6 @@
     <item
         android:id="@+id/actionSearchFragmentWatchList"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/search_shows"
+        android:title="@string/search_your_watchlist"
         app:showAsAction="always" />
 </menu>
