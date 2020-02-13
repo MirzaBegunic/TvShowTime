@@ -5,6 +5,8 @@ It's an app for tracking your favorite Tv Shows.
 
 App uses TVMAZEs free REST API for fetching shows info.
 
+Apk is available to download at [link](https://mega.nz/#!nQdCyYqS!RCbsrdmAdh7ebTnE7JDfuI284ugvVt4Kbk_3JY7-SyA).
+
 ## Discover
 
 Here you can discover new shows to watch.
