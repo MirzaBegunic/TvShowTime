@@ -1,4 +1,5 @@
-# TvShowTime
-Android App for tracking your favorite tv shows
-Available to download on link:
-https://megaupload.nz/G1i9kaw1n1/TvShowTime_apk
+# Tv Show Time
+
+This is my first small Android project that I've done.
+It's an app for tracking your favorite Tv Shows.
+
